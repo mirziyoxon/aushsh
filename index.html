@@ -60,7 +60,7 @@
     }
 
     .about-section {
-      max-width: 800px;
+      max-width: 850px;
       margin: 80px auto;
       padding: 0 20px;
     }
@@ -99,34 +99,127 @@
       font-family: "Playfair Display", serif;
     }
 
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+    }
+
     .member {
-      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .member img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
     }
 
     .member h4 {
-      margin: 0;
+      margin: 8px 0 4px;
       font-size: 1.1rem;
       font-weight: 600;
     }
 
     .member p {
-      margin: 4px 0 0;
+      margin: 0;
       color: #666;
       font-size: 0.95rem;
     }
 
-    footer {
-      border-top: 1px solid #ddd;
+    .partners {
+      margin: 80px auto;
       text-align: center;
-      padding: 30px 10px;
-      font-size: 0.85rem;
+      max-width: 1000px;
+    }
+
+    .partners h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .partner-logos {
+      display: flex;
+      gap: 40px;
+      animation: scroll 20s linear infinite;
+      width: max-content;
+    }
+
+    .partner-carousel {
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 10px 0;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+    }
+
+    .partner-logos img {
+      height: 40px;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+
+    .partner-logos img:hover {
+      opacity: 1;
+    }
+
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    footer {
+      background: #f8f8f8;
+      color: #333;
+      margin-top: 80px;
+      border-top: 1px solid #ddd;
+      padding: 40px 20px 10px;
+      font-size: 0.9rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto 40px;
+    }
+
+    .footer-column h4 {
+      font-family: "Playfair Display", serif;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      color: #000;
+    }
+
+    .footer-column a {
+      display: block;
+      color: #333;
+      text-decoration: none;
+      margin: 5px 0;
+      font-size: 0.9rem;
+    }
+
+    .footer-column a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid #ddd;
+      padding-top: 15px;
       color: #666;
-      background-color: #fafafa;
+      font-size: 0.85rem;
     }
 
     @media (max-width: 600px) {
       header h1 { font-size: 2rem; }
       .about-section { margin: 50px auto; }
+      .partner-logos img { height: 30px; }
     }
   </style>
 </head>
@@ -163,27 +256,78 @@
 
     <div class="team">
       <h3>Editorial Team</h3>
-      <div class="member">
-        <h4>Mirziyoxon Nurutdinov</h4>
-        <p>Founder & Editor-in-Chief</p>
+      <div class="team-grid">
+        <div class="member">
+          <img src="https://via.placeholder.com/120" alt="Mirziyoxon Nurutdinov">
+          <h4>Mirziyoxon Nurutdinov</h4>
+          <p>Founder & Editor-in-Chief</p>
+        </div>
+        <div class="member">
+          <img src="https://via.placeholder.com/120" alt="Sarvinoz A.">
+          <h4>Sarvinoz A.</h4>
+          <p>Managing Editor</p>
+        </div>
+        <div class="member">
+          <img src="https://via.placeholder.com/120" alt="Kamron S.">
+          <h4>Kamron S.</h4>
+          <p>Design & Multimedia Lead</p>
+        </div>
+        <div class="member">
+          <img src="https://via.placeholder.com/120" alt="Editorial Team">
+          <h4>Editorial Contributors</h4>
+          <p>Writers from across Uzbekistan and beyond</p>
+        </div>
       </div>
-      <div class="member">
-        <h4>Sarvinoz A.</h4>
-        <p>Managing Editor</p>
-      </div>
-      <div class="member">
-        <h4>Kamron S.</h4>
-        <p>Design & Multimedia Lead</p>
-      </div>
-      <div class="member">
-        <h4>Editorial Contributors</h4>
-        <p>Writers from across Uzbekistan and beyond</p>
+    </div>
+
+    <div class="partners">
+      <h3>Our Partners</h3>
+      <div class="partner-carousel">
+        <div class="partner-logos">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/BBC_News_2022_%28Alt%29.svg" alt="BBC">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/The_New_York_Times_logo.svg" alt="NYT">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Reuters_Logo.svg" alt="Reuters">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/The_New_Yorker_logo.svg" alt="The New Yorker">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Al_Jazeera_English_logo.svg" alt="Al Jazeera">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/The_Guardian_2018.svg" alt="The Guardian">
+        </div>
       </div>
     </div>
   </main>
 
   <footer>
-    &copy; 2025 The Unicorner Times. All rights reserved. | Crafted with purpose in Uzbekistan.
+    <div class="footer-grid">
+      <div class="footer-column">
+        <h4>Sections</h4>
+        <a href="#">World</a>
+        <a href="#">Economy</a>
+        <a href="#">Culture</a>
+        <a href="#">Technology</a>
+      </div>
+      <div class="footer-column">
+        <h4>About</h4>
+        <a href="about.html">Our Story</a>
+        <a href="#">Editorial Team</a>
+        <a href="#">Partners</a>
+        <a href="#">Ethics Policy</a>
+      </div>
+      <div class="footer-column">
+        <h4>Connect</h4>
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">YouTube</a>
+        <a href="#">Email Us</a>
+      </div>
+      <div class="footer-column">
+        <h4>Join Us</h4>
+        <a href="#">Submit a Story</a>
+        <a href="#">Internships</a>
+        <a href="#">Collaborate</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 The Unicorner Times — Crafted with purpose in Uzbekistan. All rights reserved.
+    </div>
   </footer>
 </body>
 </html>
