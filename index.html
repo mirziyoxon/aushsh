@@ -36,7 +36,7 @@ section{padding:80px 20px}
 .hero{
   text-align:center;
   padding:100px 20px 70px;
-  background:#fafafa;
+  background:linear-gradient(180deg,#fafafa 0%,#fff 100%);
 }
 .hero h1{
   font-family:"Georgia",serif;
@@ -74,6 +74,50 @@ section{padding:80px 20px}
 .editorial-section p{
   color:#555;
   text-align:justify;
+}
+
+/* --- Partners Section --- */
+.partners{
+  text-align:center;
+  background:#f5f5f5;
+  padding:70px 20px;
+  border-top:1px solid #eee;
+  border-bottom:1px solid #eee;
+}
+.partners h2{
+  font-family:"Georgia",serif;
+  font-size:2rem;
+  margin-bottom:40px;
+  color:#111;
+}
+.logo-slider{
+  overflow:hidden;
+  position:relative;
+  width:100%;
+}
+.logo-track{
+  display:flex;
+  width:calc(220px * 12);
+  animation:scroll 25s linear infinite;
+}
+.logo-track:hover{
+  animation-play-state:paused;
+}
+.logo-track img{
+  width:160px;
+  margin:0 25px;
+  filter:grayscale(100%);
+  opacity:0.8;
+  transition:all 0.3s ease;
+}
+.logo-track img:hover{
+  filter:grayscale(0%);
+  opacity:1;
+  transform:scale(1.05);
+}
+@keyframes scroll{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
 }
 
 /* --- Team --- */
@@ -162,6 +206,28 @@ footer{
   </div>
 </section>
 
+<!-- Partners Section -->
+<section class="partners">
+  <h2>Our Partners</h2>
+  <div class="logo-slider">
+    <div class="logo-track">
+      <img src="pics/partner1.png" alt="Partner 1">
+      <img src="pics/partner2.png" alt="Partner 2">
+      <img src="pics/partner3.png" alt="Partner 3">
+      <img src="pics/partner4.png" alt="Partner 4">
+      <img src="pics/partner5.png" alt="Partner 5">
+      <img src="pics/partner6.png" alt="Partner 6">
+      <!-- duplicated for smooth infinite loop -->
+      <img src="pics/partner1.png" alt="Partner 1">
+      <img src="pics/partner2.png" alt="Partner 2">
+      <img src="pics/partner3.png" alt="Partner 3">
+      <img src="pics/partner4.png" alt="Partner 4">
+      <img src="pics/partner5.png" alt="Partner 5">
+      <img src="pics/partner6.png" alt="Partner 6">
+    </div>
+  </div>
+</section>
+
 <section id="team">
   <h2>Our Team</h2>
   <div class="team-grid">
@@ -193,10 +259,21 @@ footer{
 </div>
 
 <script>
+// --- Telegram popup with localStorage ---
 window.addEventListener('load',()=>{
-  setTimeout(()=>{
-    document.getElementById('telegram-popup').classList.add('show');
-  },3500);
+  if(!localStorage.getItem('telegramPopupShown')){
+    setTimeout(()=>{
+      document.getElementById('telegram-popup').classList.add('show');
+      localStorage.setItem('telegramPopupShown','true');
+    },3500);
+  }
+});
+
+// --- Optional: redirect mobile/tablet users ---
+document.addEventListener("DOMContentLoaded",function(){
+  const ua = navigator.userAgent || navigator.vendor || window.opera;
+  const isMobile = /android|avantgo|blackberry|iemobile|ipad|iphone|ipod|opera mini|mobile|windows phone/i.test(ua.toLowerCase());
+  if(isMobile){ window.location.href="https://m.unicorner.uz"; }
 });
 </script>
 
