@@ -6,6 +6,7 @@
   <title>About — The Unicorner Times</title>
   <link rel="icon" href="logo.png" />
   <style>
+    /* ——— GENERAL ——— */
     body {
       font-family: "Georgia", "Times New Roman", serif;
       background-color: #fff;
@@ -19,10 +20,11 @@
       border-bottom: 1px solid #ddd;
       text-align: center;
       padding: 40px 20px 20px;
+      background-color: #fafafa;
     }
 
     header h1 {
-      font-size: 2.8rem;
+      font-size: 3rem;
       font-weight: 700;
       letter-spacing: -1px;
       margin: 0;
@@ -42,6 +44,10 @@
       border-bottom: 1px solid #ddd;
       text-align: center;
       padding: 12px 0;
+      background-color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
     nav a {
@@ -55,12 +61,40 @@
       transition: opacity 0.2s ease;
     }
 
-    nav a:hover {
-      opacity: 0.6;
+    nav a:hover { opacity: 0.6; }
+
+    /* ——— HERO SECTION ——— */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 60vh;
+      background: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
     }
 
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+    }
+
+    .hero h2 {
+      position: relative;
+      font-size: 2.8rem;
+      font-family: "Playfair Display", serif;
+      z-index: 2;
+      max-width: 700px;
+      padding: 0 20px;
+    }
+
+    /* ——— ABOUT SECTION ——— */
     .about-section {
-      max-width: 850px;
+      max-width: 950px;
       margin: 80px auto;
       padding: 0 20px;
     }
@@ -80,47 +114,59 @@
 
     blockquote {
       font-style: italic;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       border-left: 3px solid #111;
       padding-left: 16px;
-      margin: 2rem 0;
+      margin: 2.5rem 0;
       color: #555;
     }
 
+    /* ——— TEAM SECTION ——— */
     .team {
       border-top: 1px solid #ddd;
-      margin-top: 60px;
+      margin-top: 80px;
       padding-top: 40px;
     }
 
     .team h3 {
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       margin-bottom: 1rem;
       font-family: "Playfair Display", serif;
+      text-align: center;
     }
 
     .team-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 40px;
+      margin-top: 40px;
     }
 
     .member {
       text-align: center;
+      background: #fafafa;
+      border-radius: 10px;
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .member:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
     }
 
     .member img {
-      width: 120px;
-      height: 120px;
+      width: 180px;
+      height: 180px;
       border-radius: 50%;
       object-fit: cover;
-      margin-bottom: 10px;
-      border: 1px solid #ddd;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
     }
 
     .member h4 {
       margin: 8px 0 4px;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 600;
     }
 
@@ -130,6 +176,34 @@
       font-size: 0.95rem;
     }
 
+    /* ——— PHOTO COLLAGE ——— */
+    .gallery {
+      margin: 100px auto;
+      text-align: center;
+    }
+
+    .gallery h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 1.7rem;
+      margin-bottom: 20px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 15px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    /* ——— PARTNERS ——— */
     .partners {
       margin: 80px auto;
       text-align: center;
@@ -138,88 +212,88 @@
 
     .partners h3 {
       font-family: "Playfair Display", serif;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       margin-bottom: 20px;
-    }
-
-    .partner-logos {
-      display: flex;
-      gap: 40px;
-      animation: scroll 20s linear infinite;
-      width: max-content;
     }
 
     .partner-carousel {
       overflow: hidden;
-      white-space: nowrap;
-      padding: 10px 0;
       border-top: 1px solid #eee;
       border-bottom: 1px solid #eee;
+      padding: 15px 0;
+      background: #fdfdfd;
+    }
+
+    .partner-logos {
+      display: flex;
+      gap: 50px;
+      animation: scroll 25s linear infinite;
+      width: max-content;
     }
 
     .partner-logos img {
-      height: 40px;
-      opacity: 0.7;
+      height: 45px;
+      opacity: 0.8;
       transition: opacity 0.3s ease;
     }
 
-    .partner-logos img:hover {
-      opacity: 1;
-    }
+    .partner-logos img:hover { opacity: 1; }
 
     @keyframes scroll {
       from { transform: translateX(0); }
       to { transform: translateX(-50%); }
     }
 
+    /* ——— FOOTER ——— */
     footer {
-      background: #f8f8f8;
-      color: #333;
-      margin-top: 80px;
-      border-top: 1px solid #ddd;
-      padding: 40px 20px 10px;
+      background: #111;
+      color: #eee;
+      margin-top: 100px;
+      padding: 60px 20px 20px;
       font-size: 0.9rem;
     }
 
     .footer-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 30px;
-      max-width: 1000px;
-      margin: 0 auto 40px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      max-width: 1100px;
+      margin: 0 auto 50px;
     }
 
     .footer-column h4 {
       font-family: "Playfair Display", serif;
-      font-size: 1rem;
+      font-size: 1.1rem;
       margin-bottom: 10px;
-      color: #000;
+      color: #fff;
     }
 
     .footer-column a {
       display: block;
-      color: #333;
+      color: #bbb;
       text-decoration: none;
-      margin: 5px 0;
+      margin: 6px 0;
       font-size: 0.9rem;
     }
 
     .footer-column a:hover {
+      color: #fff;
       text-decoration: underline;
     }
 
     .footer-bottom {
       text-align: center;
-      border-top: 1px solid #ddd;
-      padding-top: 15px;
-      color: #666;
+      border-top: 1px solid #333;
+      padding-top: 20px;
+      color: #aaa;
       font-size: 0.85rem;
     }
 
     @media (max-width: 600px) {
       header h1 { font-size: 2rem; }
-      .about-section { margin: 50px auto; }
-      .partner-logos img { height: 30px; }
+      .hero { height: 40vh; }
+      .hero h2 { font-size: 1.8rem; }
+      .member img { width: 140px; height: 140px; }
     }
   </style>
 </head>
@@ -236,52 +310,69 @@
     <a href="contact.html">Contact</a>
   </nav>
 
+  <section class="hero">
+    <h2>Behind Every Story — A Team That Believes in Thoughtful Journalism</h2>
+  </section>
+
   <main class="about-section">
     <h2>About The Unicorner Times</h2>
     <p>
-      The Unicorner Times is a student-driven digital journal dedicated to exploring ideas that shape our world — from economics and technology to culture and politics. 
-      Founded with a vision to create a space for young voices, it combines rigorous analysis with creative storytelling. 
-      Our mission is to connect ideas, perspectives, and ambitions across corners of the world.
+      The Unicorner Times is a student-driven digital journal dedicated to exploring the forces that shape our future — from economics and technology to culture and politics. 
+      We bring young voices into the global conversation, encouraging critical thinking and creative storytelling.
     </p>
 
     <blockquote>
-      “We believe good journalism doesn’t shout — it whispers truth with conviction.”
+      “We believe that journalism should not only inform — it should illuminate.”
     </blockquote>
 
     <p>
-      Inspired by the tradition of publications like <em>The New York Times</em> and <em>The New Yorker</em>, The Unicorner Times is built upon curiosity, depth, and style. 
-      We write not for clicks, but for clarity — not to impress, but to inspire. 
-      Every story published here passes through critical thought and genuine inquiry, aimed to inform, challenge, and engage.
+      Inspired by publications like <em>The New York Times</em> and <em>The New Yorker</em>, The Unicorner Times blends investigative depth with literary style. 
+      We tell stories that transcend headlines, aiming to inspire curiosity and civic imagination.
     </p>
 
+    <!-- TEAM -->
     <div class="team">
       <h3>Editorial Team</h3>
       <div class="team-grid">
         <div class="member">
-          <img src="https://via.placeholder.com/120" alt="Mirziyoxon Nurutdinov">
+          <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=500&q=80" alt="Mirziyoxon Nurutdinov">
           <h4>Mirziyoxon Nurutdinov</h4>
           <p>Founder & Editor-in-Chief</p>
         </div>
         <div class="member">
-          <img src="https://via.placeholder.com/120" alt="Sarvinoz A.">
+          <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=500&q=80" alt="Sarvinoz A.">
           <h4>Sarvinoz A.</h4>
           <p>Managing Editor</p>
         </div>
         <div class="member">
-          <img src="https://via.placeholder.com/120" alt="Kamron S.">
+          <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&w=500&q=80" alt="Kamron S.">
           <h4>Kamron S.</h4>
           <p>Design & Multimedia Lead</p>
         </div>
         <div class="member">
-          <img src="https://via.placeholder.com/120" alt="Editorial Team">
+          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=500&q=80" alt="Editorial Team">
           <h4>Editorial Contributors</h4>
           <p>Writers from across Uzbekistan and beyond</p>
         </div>
       </div>
     </div>
 
+    <!-- PHOTO GALLERY -->
+    <div class="gallery">
+      <h3>Moments from Our Journey</h3>
+      <div class="gallery-grid">
+        <img src="https://images.unsplash.com/photo-1494172961521-33799ddd43a5?auto=format&fit=crop&w=800&q=80" alt="">
+        <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=800&q=80" alt="">
+        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" alt="">
+        <img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=800&q=80" alt="">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="">
+        <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=800&q=80" alt="">
+      </div>
+    </div>
+
+    <!-- PARTNERS -->
     <div class="partners">
-      <h3>Our Partners</h3>
+      <h3>Our Global Partners</h3>
       <div class="partner-carousel">
         <div class="partner-logos">
           <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/BBC_News_2022_%28Alt%29.svg" alt="BBC">
@@ -295,6 +386,7 @@
     </div>
   </main>
 
+  <!-- FOOTER -->
   <footer>
     <div class="footer-grid">
       <div class="footer-column">
