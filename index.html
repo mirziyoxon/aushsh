@@ -1,281 +1,366 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About — The Unicorner Times</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  font-family:"Inter","Helvetica Neue",Arial,sans-serif;
-  color:#111;
-  background:#fff;
-  line-height:1.7;
-  overflow-x:hidden;
-}
-a{text-decoration:none;color:inherit}
-img{max-width:100%;border-radius:6px}
-section{padding:80px 20px}
-.container{max-width:850px;margin:auto}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - The Unicorner Times</title>
 
-/* --- Header --- */
-.navbar{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:20px 30px;border-bottom:1px solid #e5e5e5;
-  position:sticky;top:0;background:#fff;z-index:100;
-}
-.logo{
-  font-family:"Georgia","Times New Roman",serif;
-  font-weight:700;font-size:28px;color:#000;
-}
-.nav-right{display:flex;gap:25px}
-.nav-right a{color:#444;font-weight:500;transition:.2s}
-.nav-right a:hover{color:#000}
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "Inter", Arial, sans-serif;
+      color: #222;
+      background: #fff;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
 
-/* --- Hero --- */
-.hero{
-  text-align:center;
-  padding:100px 20px 70px;
-  background:linear-gradient(180deg,#fafafa 0%,#fff 100%);
-}
-.hero h1{
-  font-family:"Georgia",serif;
-  font-size:2.8rem;
-  letter-spacing:-0.5px;
-  margin-bottom:15px;
-}
-.hero p{
-  font-size:1.2rem;
-  color:#555;
-  max-width:650px;
-  margin:auto;
-  line-height:1.8;
-}
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      border-bottom: 1px solid #eee;
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 1000;
+    }
+    .logo {
+      font-family: "Times New Roman", serif;
+      font-size: 26px;
+      font-weight: bold;
+      color: #111;
+    }
+    .nav-right {
+      display: flex;
+      gap: 20px;
+    }
+    .nav-right a {
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    .nav-right a:hover { color: #ff6600; }
 
-/* --- Editorial Sections --- */
-.editorial-section{
-  display:flex;flex-wrap:wrap;align-items:center;
-  gap:40px;max-width:1000px;margin:80px auto;
-}
-.editorial-section:nth-child(even){flex-direction:row-reverse;}
-.editorial-section img{
-  width:420px;
-  border-radius:10px;
-  box-shadow:0 6px 18px rgba(0,0,0,0.08);
-}
-.editorial-section .text{
-  flex:1;min-width:300px;
-}
-.editorial-section h2{
-  font-family:"Georgia",serif;
-  font-size:1.9rem;
-  margin-bottom:10px;
-}
-.editorial-section p{
-  color:#555;
-  text-align:justify;
-}
+    /* Hamburger */
+    .menu-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .menu-btn span {
+      width: 25px;
+      height: 3px;
+      background: #111;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
 
-/* --- Partners Section --- */
-.partners{
-  text-align:center;
-  background:#f5f5f5;
-  padding:70px 20px;
-  border-top:1px solid #eee;
-  border-bottom:1px solid #eee;
-}
-.partners h2{
-  font-family:"Georgia",serif;
-  font-size:2rem;
-  margin-bottom:40px;
-  color:#111;
-}
-.logo-slider{
-  overflow:hidden;
-  position:relative;
-  width:100%;
-}
-.logo-track{
-  display:flex;
-  width:calc(220px * 12);
-  animation:scroll 25s linear infinite;
-}
-.logo-track:hover{
-  animation-play-state:paused;
-}
-.logo-track img{
-  width:160px;
-  margin:0 25px;
-  filter:grayscale(100%);
-  opacity:0.8;
-  transition:all 0.3s ease;
-}
-.logo-track img:hover{
-  filter:grayscale(0%);
-  opacity:1;
-  transform:scale(1.05);
-}
-@keyframes scroll{
-  0%{transform:translateX(0)}
-  100%{transform:translateX(-50%)}
-}
+    @media (max-width: 768px) {
+      .menu-btn { display: flex; }
+      .nav-right {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        width: 200px;
+        height: 100%;
+        background: #fff;
+        box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+        flex-direction: column;
+        padding: 60px 20px;
+        transition: left 0.3s ease;
+      }
+      .nav-right.show { left: 0; }
+      .nav-right a { margin: 10px 0; font-size: 1.1rem; }
+    }
 
-/* --- Team --- */
-#team{background:#f5f5f5;text-align:center;padding:80px 0}
-#team h2{
-  font-family:"Georgia",serif;
-  font-size:2.2rem;
-  margin-bottom:40px;
-}
-.team-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:30px;
-  max-width:850px;
-  margin:auto;
-}
-.member{
-  background:#fff;
-  border-radius:12px;
-  padding:25px;
-  transition:.3s;
-  box-shadow:0 3px 10px rgba(0,0,0,0.05);
-}
-.member:hover{transform:translateY(-5px);box-shadow:0 8px 20px rgba(0,0,0,0.08);}
-.member img{
-  width:120px;height:120px;border-radius:50%;margin-bottom:10px;filter:grayscale(100%);
-  transition:.3s;
-}
-.member:hover img{filter:grayscale(0%);}
-.member h3{font-size:1.2rem;margin-bottom:6px}
-.member p{color:#666;font-size:0.95rem}
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 70px 20px 40px;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+    .hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
+    .hero p { color: #555; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
 
-/* --- Telegram popup --- */
-#telegram-popup{
-  position:fixed;bottom:25px;right:25px;background:#111;color:#fff;
-  padding:22px 26px;border-radius:12px;display:flex;flex-direction:column;
-  gap:10px;align-items:center;opacity:0;transform:translateY(30px);
-  transition:all 0.5s ease;z-index:999;
-}
-#telegram-popup.show{opacity:1;transform:translateY(0);}
-#telegram-popup a{
-  background:#0088cc;padding:8px 16px;border-radius:6px;color:#fff;
-  font-weight:500;transition:.2s;
-}
-#telegram-popup a:hover{background:#00aaff}
+    /* Section */
+    .section {
+      max-width: 1000px;
+      margin: 60px auto;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 30px;
+    }
+    .section img {
+      flex: 1 1 300px;
+      max-width: 400px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+    .section-content {
+      flex: 1 1 400px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+    .section-content h2 { font-size: 1.8rem; margin-bottom: 10px; }
+    .section-content p { color: #555; line-height: 1.6; }
+    .visible { opacity: 1 !important; transform: translateY(0) !important; }
 
-/* --- Footer --- */
-footer{
-  text-align:center;padding:40px 10px;
-  background:#f9f9f9;color:#666;font-size:0.9rem;margin-top:60px;
-  border-top:1px solid #eee;
-}
-</style>
+    /* Telegram CTA */
+    .telegram-banner {
+      text-align: center;
+      background: #f4f4f4;
+      padding: 40px 20px;
+      margin: 60px 0;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+    }
+    .telegram-banner h2 { font-size: 1.8rem; margin-bottom: 10px; }
+    .telegram-banner p { color: #555; margin-bottom: 20px; }
+    .telegram-banner a {
+      display: inline-block;
+      background: #229ED9;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    .telegram-banner a:hover { background: #0088cc; }
+
+    /* Team */
+    #team {
+      padding: 50px 0;
+      text-align: center;
+      background: #fafafa;
+    }
+    #team h2 { font-size: 32px; margin-bottom: 30px; }
+    .carousel { position: relative; max-width: 400px; margin: auto; }
+    .slides { display: flex; overflow: hidden; }
+    .member {
+      min-width: 100%;
+      transition: 0.5s;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .member img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+    }
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 40%;
+      padding: 10px 14px;
+      color: #333;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 50%;
+      background: #ddd;
+    }
+    .next { right: -45px; }
+    .prev { left: -45px; }
+    .prev:hover, .next:hover { background: #666; color: #fff; }
+
+    .dots { text-align: center; margin-top: 15px; }
+    .dot {
+      height: 12px; width: 12px;
+      margin: 0 5px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .dot.active { background-color: #333; }
+
+    /* Partners */
+    #partners { padding: 50px 0; background: #fff; text-align: center; }
+    .partners-marquee { overflow: hidden; white-space: nowrap; }
+    .marquee-track {
+      display: inline-flex;
+      gap: 80px;
+      align-items: center;
+      animation: marquee 30s linear infinite;
+    }
+    .marquee-track img {
+      height: 90px;
+      width: auto;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+    .marquee-track img:hover { transform: scale(1.15); }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #fafafa;
+      color: #777;
+      font-size: 0.9rem;
+      border-top: 1px solid #eee;
+    }
+
+    @keyframes fadeIn { from {opacity: 0; transform: translateY(20px);} to {opacity: 1; transform: translateY(0);} }
+  </style>
+
+  <script>
+    // ✅ Mobile redirect (includes Redmi, Samsung, iPad)
+    if (/Android|iPhone|iPad|iPod|Mobile|Tablet|Samsung|Redmi/i.test(navigator.userAgent)) {
+      window.location.href = "https://m.unicorner.uz";
+    }
+  </script>
 </head>
+
 <body>
-
-<nav class="navbar">
-  <a href="https://unicorner.uz" class="logo">The Unicorner Times</a>
-  <div class="nav-right">
-    <a href="https://unicorner.uz">Home</a>
-    <a href="https://book.unicorner.uz">Books</a>
-    <a href="https://research.unicorner.uz">Research</a>
-    <a href="https://article.unicorner.uz">Articles</a>
-    <a href="https://unicorner.uz/publish">Publish</a>
-  </div>
-</nav>
-
-<section class="hero">
-  <h1>About The Unicorner Times</h1>
-  <p>Founded by a new generation of thinkers, The Unicorner Times reimagines how Central Asia reads, learns, and creates — bridging journalism, research, and storytelling with global perspective.</p>
-</section>
-
-<section class="editorial-section">
-  <img src="pics/community.jpg" alt="Community">
-  <div class="text">
-    <h2>Our Community</h2>
-    <p>Unicorner connects students, writers, and innovators across more than 20 countries. Together, they share the conviction that curiosity and collaboration are stronger than borders. We publish in multiple languages and mediums, supporting independent youth voices across the region.</p>
-  </div>
-</section>
-
-<section class="editorial-section">
-  <img src="pics/mission.jpg" alt="Mission">
-  <div class="text">
-    <h2>Our Mission</h2>
-    <p>We believe knowledge is a public good. Our mission is to make research readable, stories relatable, and ideas reachable — creating an open space where insight meets imagination. Every publication, whether analytical or poetic, contributes to a growing archive of thought for the future.</p>
-  </div>
-</section>
-
-<!-- Partners Section -->
-<section class="partners">
-  <h2>Our Partners</h2>
-  <div class="logo-slider">
-    <div class="logo-track">
-      <img src="pics/partner1.png" alt="Partner 1">
-      <img src="pics/partner2.png" alt="Partner 2">
-      <img src="pics/partner3.png" alt="Partner 3">
-      <img src="pics/partner4.png" alt="Partner 4">
-      <img src="pics/partner5.png" alt="Partner 5">
-      <img src="pics/partner6.png" alt="Partner 6">
-      <!-- duplicated for smooth infinite loop -->
-      <img src="pics/partner1.png" alt="Partner 1">
-      <img src="pics/partner2.png" alt="Partner 2">
-      <img src="pics/partner3.png" alt="Partner 3">
-      <img src="pics/partner4.png" alt="Partner 4">
-      <img src="pics/partner5.png" alt="Partner 5">
-      <img src="pics/partner6.png" alt="Partner 6">
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="/" class="logo">The Unicorner Times</a>
+    <div class="menu-btn" id="menu-btn"><span></span><span></span><span></span></div>
+    <div class="nav-right" id="nav-links">
+      <a href="https://unicorner.uz">Home</a>
+      <a href="https://book.unicorner.uz">Books</a>
+      <a href="https://research.unicorner.uz">Research</a>
+      <a href="https://article.unicorner.uz">Articles</a>
+      <a href="https://unicorner.uz/publish">Publish</a>
     </div>
-  </div>
-</section>
+  </nav>
 
-<section id="team">
-  <h2>Our Team</h2>
-  <div class="team-grid">
-    <div class="member">
-      <img src="pics/abu2.PNG" alt="">
-      <h3><a href="https://unicorner.uz/coo" target="_blank">Abduqodirjon Bakhromov</a></h3>
-      <p>Co-Author @ UGS Tashkent</p>
+  <!-- Hero -->
+  <section class="hero">
+    <h1>About The Unicorner Times</h1>
+    <p>We are an open-source platform that amplifies young voices through creative writing, research, and cultural storytelling. Built in Uzbekistan, shared with the world.</p>
+  </section>
+
+  <!-- Sections -->
+  <section class="section">
+    <img src="pics/community.jpg" alt="Community" />
+    <div class="section-content">
+      <h2>Our Community</h2>
+      <p>Writers, researchers, and dreamers from across the world unite here. The Unicorner Times builds bridges through shared stories and academic curiosity.</p>
     </div>
-    <div class="member">
-      <img src="pics/member0.jpg" alt="">
-      <h3>Mustafaeva Durdona</h3>
-      <p>Executive Author</p>
+  </section>
+
+  <section class="section">
+    <div class="section-content">
+      <h2>Our Mission</h2>
+      <p>To democratize information and creative publishing — giving every mind, young or old, the tools to share, inspire, and change how we think about stories and knowledge.</p>
     </div>
-    <div class="member">
-      <img src="pics/member0.jpg" alt="">
-      <h3>Mushtariy Anvarova</h3>
-      <p>Author & NisoUz</p>
+    <img src="pics/mission.jpg" alt="Mission" />
+  </section>
+
+  <section class="section">
+    <img src="pics/innovation.jpg" alt="Innovation" />
+    <div class="section-content">
+      <h2>Innovation & Growth</h2>
+      <p>We experiment with design and technology to make publishing seamless and beautiful. Our aim is to blend journalism, creativity, and data into one future-focused space.</p>
     </div>
-  </div>
-</section>
+  </section>
 
-<footer>
-  <p>&copy; 2025 The Unicorner Times. All rights reserved.</p>
-</footer>
+  <!-- Telegram Banner -->
+  <section class="telegram-banner">
+    <h2>Join Our Telegram Community</h2>
+    <p>Stay up-to-date with our latest articles, publications, and creative projects.</p>
+    <a href="https://t.me/unicorner_ac" target="_blank">Subscribe on Telegram</a>
+  </section>
 
-<div id="telegram-popup">
-  <p>Join our Telegram for exclusive updates.</p>
-  <a href="https://t.me/unicorner_ac" target="_blank">Join Now</a>
-</div>
+  <!-- Team -->
+  <section id="team">
+    <h2>Our Team</h2>
+    <div class="carousel">
+      <div class="slides">
+        <div class="member">
+          <img src="pics/abu2.PNG" alt="Abduqodirjon Bakhromov" />
+          <h3><a href="https://unicorner.uz/coo">Abduqodirjon Bakhromov</a></h3>
+          <p>Co-Author @ UGS Tashkent</p>
+        </div>
+        <div class="member">
+          <img src="pics/member0.jpg" alt="Mustafaeva Durdona" />
+          <h3>Mustafaeva Durdona</h3>
+          <p>Executive Author</p>
+        </div>
+        <div class="member">
+          <img src="pics/member0.jpg" alt="Mushtariy Anvarova" />
+          <h3>Mushtariy Anvarova</h3>
+          <p>Author @ NisoUz</p>
+        </div>
+      </div>
 
-<script>
-// --- Telegram popup with localStorage ---
-window.addEventListener('load',()=>{
-  if(!localStorage.getItem('telegramPopupShown')){
-    setTimeout(()=>{
-      document.getElementById('telegram-popup').classList.add('show');
-      localStorage.setItem('telegramPopupShown','true');
-    },3500);
-  }
-});
+      <a class="prev">&#10094;</a>
+      <a class="next">&#10095;</a>
 
-// --- Optional: redirect mobile/tablet users ---
-document.addEventListener("DOMContentLoaded",function(){
-  const ua = navigator.userAgent || navigator.vendor || window.opera;
-  const isMobile = /android|avantgo|blackberry|iemobile|ipad|iphone|ipod|opera mini|mobile|windows phone/i.test(ua.toLowerCase());
-  if(isMobile){ window.location.href="https://m.unicorner.uz"; }
-});
-</script>
+      <div class="dots">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+      </div>
+    </div>
+  </section>
 
+  <!-- Partners -->
+  <section id="partners">
+    <div class="partners-marquee">
+      <div class="marquee-track">
+        <a href="https://t.me/aponomics"><img src="partners/partner1.png" alt="Partner 1"></a>
+        <a href="https://t.me/fincost"><img src="partners/partner2.jpg" alt="Partner 2"></a>
+        <a href="https://gov.uz/oz/yoshlar"><img src="partners/partner002.png" alt="Partner 0"></a>
+        <a href="https://t.me/unicorner_ac"><img src="partners/partner4.jpg" alt="Partner 4"></a>
+        <a href="https://fincost.ai"><img src="partners/partnerfinrdlab.png" alt="Partner 5"></a>
+        <a href="https://uzgeouniver.uz"><img src="partners/partner6.png" alt="Partner 6"></a>
+        <a href="https://t.me/nisouzz"><img src="partners/partner07.png" alt="Partner 7"></a>
+        <a href="https://t.me/shahrisabzshaharixtisoslashganmk"><img src="partners/partner8.png" alt="Partner 8"></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 The Unicorner Times. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Navbar toggle
+    document.getElementById("menu-btn").onclick = () =>
+      document.getElementById("nav-links").classList.toggle("show");
+
+    // Fade-in sections
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("visible"); });
+    }, { threshold: 0.2 });
+    document.querySelectorAll(".section img, .section-content").forEach((el) => observer.observe(el));
+
+    // Team Carousel
+    let slideIndex = 0;
+    const slides = document.querySelectorAll(".member");
+    const dots = document.querySelectorAll(".dot");
+
+    function showSlides(n) {
+      slides.forEach(s => s.style.display = "none");
+      dots.forEach(d => d.classList.remove("active"));
+      slideIndex = (n + slides.length) % slides.length;
+      slides[slideIndex].style.display = "block";
+      dots[slideIndex].classList.add("active");
+    }
+    showSlides(slideIndex);
+    document.querySelector(".prev").onclick = () => showSlides(slideIndex - 1);
+    document.querySelector(".next").onclick = () => showSlides(slideIndex + 1);
+    setInterval(() => showSlides(slideIndex + 1), 5000);
+
+    // Disable right click
+    document.addEventListener("contextmenu", (e) => e.preventDefault());
+    document.addEventListener("dragstart", (e) => e.preventDefault());
+  </script>
 </body>
 </html>
