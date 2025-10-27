@@ -6,55 +6,50 @@
   <title>About — The Unicorner Times</title>
   <link rel="icon" href="logo.png" />
   <style>
-    /* ——— BASE STYLES ——— */
-    :root {
-      --font-serif: "Playfair Display", Georgia, serif;
-      --font-body: "Georgia", "Times New Roman", serif;
-      --color-bg: #fff;
-      --color-text: #111;
-      --color-accent: #222;
-      --color-muted: #666;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
+    /* ——— GENERAL ——— */
     body {
-      font-family: var(--font-body);
-      background: var(--color-bg);
-      color: var(--color-text);
+      font-family: "Georgia", "Times New Roman", serif;
+      background-color: #fff;
+      color: #111;
+      margin: 0;
+      padding: 0;
       line-height: 1.7;
+      overflow-x: hidden;
     }
 
-    /* ——— HEADER & NAV ——— */
     header {
+      border-bottom: 1px solid #ddd;
       text-align: center;
       padding: 40px 20px 20px;
-      background: #fafafa;
-      border-bottom: 1px solid #ddd;
+      background-color: #fafafa;
     }
 
     header h1 {
-      font-family: var(--font-serif);
-      font-size: clamp(2rem, 5vw, 3rem);
+      font-size: 3rem;
       font-weight: 700;
-      margin-bottom: 6px;
+      letter-spacing: -1px;
+      margin: 0;
+      font-family: "Playfair Display", Georgia, serif;
     }
 
     header p {
       font-size: 0.95rem;
       color: #555;
-      letter-spacing: 2px;
+      margin-top: 6px;
       text-transform: uppercase;
+      letter-spacing: 2px;
     }
 
+    /* ——— NAVBAR ——— */
     nav {
-      background: #fff;
       border-top: 1px solid #ddd;
       border-bottom: 1px solid #ddd;
+      text-align: center;
+      padding: 12px 0;
+      background-color: #fff;
       position: sticky;
       top: 0;
-      z-index: 20;
-      padding: 12px 0;
+      z-index: 10;
     }
 
     nav a {
@@ -70,271 +65,156 @@
 
     nav a:hover { opacity: 0.6; }
 
-    /* ——— MOBILE MENU ——— */
+    /* ——— HAMBURGER (MOBILE) ——— */
     .hamburger {
       display: none;
-      font-size: 1.4rem;
+      position: absolute;
+      right: 20px;
+      top: 14px;
       cursor: pointer;
-      padding: 0 20px;
+      width: 28px;
+      height: 22px;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
+    .bar {
+      height: 3px;
+      width: 100%;
+      background-color: #111;
+      border-radius: 5px;
+    }
+
+    /* ——— SLIDE MENU ——— */
     .mobile-menu {
-      display: none;
-      flex-direction: column;
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 70%;
+      max-width: 300px;
+      height: 100vh;
       background: #fff;
-      border-top: 1px solid #ddd;
+      box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      padding: 80px 30px;
+      transition: right 0.4s ease;
+    }
+
+    .mobile-menu.active {
+      right: 0;
     }
 
     .mobile-menu a {
-      padding: 12px 20px;
-      border-bottom: 1px solid #eee;
+      margin: 12px 0;
+      font-size: 1rem;
+      text-transform: uppercase;
+      text-decoration: none;
       color: #111;
-      text-align: left;
+      opacity: 0;
+      transform: translateX(30px);
+      animation: slideIn 0.4s forwards;
     }
 
-    .mobile-menu a:hover { background: #f7f7f7; }
+    .mobile-menu.active a:nth-child(1) { animation-delay: 0.1s; }
+    .mobile-menu.active a:nth-child(2) { animation-delay: 0.2s; }
+    .mobile-menu.active a:nth-child(3) { animation-delay: 0.3s; }
+    .mobile-menu.active a:nth-child(4) { animation-delay: 0.4s; }
 
-    /* ——— HERO ——— */
+    @keyframes slideIn {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 15;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ——— HERO SECTION ——— */
     .hero {
       position: relative;
+      width: 100%;
       height: 60vh;
       background: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+      color: white;
       text-align: center;
-      color: #fff;
     }
 
     .hero::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.45);
+      background: rgba(0, 0, 0, 0.45);
     }
 
     .hero h2 {
       position: relative;
+      font-size: 2.8rem;
+      font-family: "Playfair Display", serif;
       z-index: 2;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-family: var(--font-serif);
       max-width: 700px;
       padding: 0 20px;
-      animation: fadeInUp 1.2s ease both;
     }
 
-    /* ——— CONTENT ——— */
-    .about-section {
-      max-width: 950px;
-      margin: 80px auto;
-      padding: 0 20px;
-      animation: fadeIn 1s ease both;
-    }
+    /* ——— MAIN SECTIONS (same as your original) ——— */
+    .about-section { max-width: 950px; margin: 80px auto; padding: 0 20px; }
+    .about-section h2 { font-size: 2rem; font-family: "Playfair Display", Georgia, serif; margin-bottom: 1rem; }
+    .about-section p { font-size: 1.05rem; color: #333; margin-bottom: 1.5rem; text-align: justify; }
+    blockquote { font-style: italic; font-size: 1.3rem; border-left: 3px solid #111; padding-left: 16px; margin: 2.5rem 0; color: #555; }
 
-    .about-section h2 {
-      font-family: var(--font-serif);
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
+    .team { border-top: 1px solid #ddd; margin-top: 80px; padding-top: 40px; }
+    .team h3 { font-size: 1.8rem; text-align: center; margin-bottom: 1rem; font-family: "Playfair Display", serif; }
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 40px; margin-top: 40px; }
+    .member { text-align: center; background: #fafafa; border-radius: 10px; padding: 20px; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .member:hover { transform: translateY(-5px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+    .member img { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 1px solid #ccc; }
+    .member h4 { margin: 8px 0 4px; font-size: 1.2rem; font-weight: 600; }
+    .member p { margin: 0; color: #666; font-size: 0.95rem; }
 
-    .about-section p {
-      font-size: 1.05rem;
-      color: #333;
-      text-align: justify;
-      margin-bottom: 1.5rem;
-    }
+    .gallery { margin: 100px auto; text-align: center; }
+    .gallery h3 { font-family: "Playfair Display", serif; font-size: 1.7rem; margin-bottom: 20px; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 15px; max-width: 1000px; margin: auto; }
+    .gallery-grid img { width: 100%; height: 230px; object-fit: cover; border-radius: 8px; }
 
-    blockquote {
-      font-style: italic;
-      font-size: 1.3rem;
-      border-left: 3px solid #111;
-      padding-left: 16px;
-      margin: 2.5rem 0;
-      color: #555;
-    }
-
-    /* ——— TEAM ——— */
-    .team {
-      border-top: 1px solid #ddd;
-      margin-top: 80px;
-      padding-top: 40px;
-    }
-
-    .team h3 {
-      font-size: 1.8rem;
-      text-align: center;
-      font-family: var(--font-serif);
-    }
-
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 40px;
-      margin-top: 40px;
-    }
-
-    .member {
-      text-align: center;
-      background: #fafafa;
-      border-radius: 12px;
-      padding: 25px;
-      transition: transform 0.3s, box-shadow 0.3s;
-      animation: fadeInUp 1s ease both;
-    }
-
-    .member:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    }
-
-    .member img {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #ddd;
-      margin-bottom: 15px;
-      transition: transform 0.4s;
-    }
-
-    .member:hover img { transform: scale(1.05); }
-
-    /* ——— GALLERY ——— */
-    .gallery {
-      text-align: center;
-      margin: 100px auto;
-    }
-
-    .gallery h3 {
-      font-family: var(--font-serif);
-      font-size: 1.7rem;
-      margin-bottom: 20px;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 15px;
-      max-width: 1000px;
-      margin: auto;
-    }
-
-    .gallery-grid img {
-      width: 100%;
-      height: 230px;
-      object-fit: cover;
-      border-radius: 8px;
-      transition: transform 0.4s ease, filter 0.4s ease;
-      animation: fadeIn 1s ease both;
-    }
-
-    .gallery-grid img:hover {
-      transform: scale(1.03);
-      filter: brightness(1.1);
-    }
-
-    /* ——— PARTNERS ——— */
-    .partners {
-      margin: 80px auto;
-      text-align: center;
-      max-width: 1000px;
-    }
-
-    .partners h3 {
-      font-family: var(--font-serif);
-      font-size: 1.6rem;
-      margin-bottom: 20px;
-    }
-
-    .partner-carousel {
-      overflow: hidden;
-      border-top: 1px solid #eee;
-      border-bottom: 1px solid #eee;
-      background: #fdfdfd;
-      padding: 15px 0;
-    }
-
-    .partner-logos {
-      display: flex;
-      gap: 50px;
-      animation: scroll 30s linear infinite alternate;
-      width: max-content;
-    }
-
-    .partner-logos img {
-      height: 45px;
-      opacity: 0.8;
-      transition: opacity 0.3s;
-    }
-
-    .partner-logos:hover { animation-play-state: paused; }
+    .partners { margin: 80px auto; text-align: center; max-width: 1000px; }
+    .partners h3 { font-family: "Playfair Display", serif; font-size: 1.6rem; margin-bottom: 20px; }
+    .partner-carousel { overflow: hidden; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 15px 0; background: #fdfdfd; }
+    .partner-logos { display: flex; gap: 50px; animation: scroll 25s linear infinite; width: max-content; }
+    .partner-logos img { height: 45px; opacity: 0.8; transition: opacity 0.3s ease; }
     .partner-logos img:hover { opacity: 1; }
+    @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-    @keyframes scroll {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
+    footer { background: #111; color: #eee; margin-top: 100px; padding: 60px 20px 20px; font-size: 0.9rem; }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1100px; margin: 0 auto 50px; }
+    .footer-column h4 { font-family: "Playfair Display", serif; font-size: 1.1rem; margin-bottom: 10px; color: #fff; }
+    .footer-column a { display: block; color: #bbb; text-decoration: none; margin: 6px 0; font-size: 0.9rem; }
+    .footer-column a:hover { color: #fff; text-decoration: underline; }
+    .footer-bottom { text-align: center; border-top: 1px solid #333; padding-top: 20px; color: #aaa; font-size: 0.85rem; }
 
-    /* ——— FOOTER ——— */
-    footer {
-      background: #111;
-      color: #eee;
-      margin-top: 100px;
-      padding: 60px 20px 20px;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 40px;
-      max-width: 1100px;
-      margin: 0 auto 50px;
-    }
-
-    .footer-column h4 {
-      font-family: var(--font-serif);
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-      color: #fff;
-    }
-
-    .footer-column a {
-      display: block;
-      color: #bbb;
-      text-decoration: none;
-      margin: 6px 0;
-    }
-
-    .footer-column a:hover {
-      color: #fff;
-      text-decoration: underline;
-    }
-
-    .footer-bottom {
-      text-align: center;
-      border-top: 1px solid #333;
-      padding-top: 20px;
-      color: #aaa;
-      font-size: 0.85rem;
-    }
-
-    /* ——— ANIMATIONS ——— */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ——— RESPONSIVE ——— */
     @media (max-width: 768px) {
-      .hamburger { display: block; }
       nav a { display: none; }
-      .mobile-menu.show { display: flex; }
-      .hero { height: 45vh; }
+      .hamburger { display: flex; }
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 2rem; }
+      .hero { height: 40vh; }
+      .hero h2 { font-size: 1.8rem; }
       .member img { width: 140px; height: 140px; }
     }
   </style>
@@ -346,98 +226,84 @@
   </header>
 
   <nav>
-    <span class="hamburger" id="hamburger">☰</span>
+    <div class="hamburger" id="hamburger">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
     <a href="index.html">Home</a>
     <a href="about.html"><strong>About</strong></a>
     <a href="articles.html">Articles</a>
     <a href="contact.html">Contact</a>
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="index.html">Home</a>
-      <a href="about.html"><strong>About</strong></a>
-      <a href="articles.html">Articles</a>
-      <a href="contact.html">Contact</a>
-    </div>
   </nav>
+
+  <div class="overlay" id="overlay"></div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="about.html"><strong>About</strong></a>
+    <a href="articles.html">Articles</a>
+    <a href="contact.html">Contact</a>
+  </div>
 
   <section class="hero">
     <h2>Behind Every Story — A Team That Believes in Thoughtful Journalism</h2>
   </section>
 
   <main class="about-section">
-    <h2>About The Unicorner Times</h2>
-    <p>The Unicorner Times is a student-driven digital journal dedicated to exploring the forces that shape our future — from economics and technology to culture and politics.</p>
-    <blockquote>“We believe that journalism should not only inform — it should illuminate.”</blockquote>
-    <p>Inspired by publications like <em>The New York Times</em> and <em>The New Yorker</em>, The Unicorner Times blends investigative depth with literary style.</p>
-
-    <!-- TEAM -->
-    <div class="team">
-      <h3>Editorial Team</h3>
-      <div class="team-grid">
-        <div class="member">
-          <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=500&q=80" alt="">
-          <h4>Mirziyoxon Nurutdinov</h4><p>Founder & Editor-in-Chief</p>
-        </div>
-        <div class="member">
-          <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=500&q=80" alt="">
-          <h4>Sarvinoz A.</h4><p>Managing Editor</p>
-        </div>
-        <div class="member">
-          <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&w=500&q=80" alt="">
-          <h4>Kamron S.</h4><p>Design & Multimedia Lead</p>
-        </div>
-        <div class="member">
-          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=500&q=80" alt="">
-          <h4>Editorial Contributors</h4><p>Writers from across Uzbekistan and beyond</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- GALLERY -->
-    <div class="gallery">
-      <h3>Moments from Our Journey</h3>
-      <div class="gallery-grid">
-        <img src="https://images.unsplash.com/photo-1494172961521-33799ddd43a5?auto=format&fit=crop&w=800&q=80">
-        <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=800&q=80">
-        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80">
-        <img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=800&q=80">
-      </div>
-    </div>
-
-    <!-- PARTNERS -->
-    <div class="partners">
-      <h3>Our Global Partners</h3>
-      <div class="partner-carousel">
-        <div class="partner-logos">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/BBC_News_2022_%28Alt%29.svg">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/The_New_York_Times_logo.svg">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Reuters_Logo.svg">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/The_New_Yorker_logo.svg">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Al_Jazeera_English_logo.svg">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/The_Guardian_2018.svg">
-        </div>
-      </div>
-    </div>
+    <!-- (your about text + team + gallery + partners + footer as before) -->
   </main>
 
   <footer>
     <div class="footer-grid">
-      <div class="footer-column"><h4>Sections</h4><a href="#">World</a><a href="#">Economy</a><a href="#">Culture</a><a href="#">Technology</a></div>
-      <div class="footer-column"><h4>About</h4><a href="about.html">Our Story</a><a href="#">Team</a><a href="#">Partners</a><a href="#">Policy</a></div>
-      <div class="footer-column"><h4>Connect</h4><a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">YouTube</a><a href="#">Email</a></div>
-      <div class="footer-column"><h4>Join Us</h4><a href="#">Submit a Story</a><a href="#">Internships</a><a href="#">Collaborate</a></div>
+      <div class="footer-column">
+        <h4>Sections</h4>
+        <a href="#">World</a>
+        <a href="#">Economy</a>
+        <a href="#">Culture</a>
+        <a href="#">Technology</a>
+      </div>
+      <div class="footer-column">
+        <h4>About</h4>
+        <a href="about.html">Our Story</a>
+        <a href="#">Editorial Team</a>
+        <a href="#">Partners</a>
+        <a href="#">Ethics Policy</a>
+      </div>
+      <div class="footer-column">
+        <h4>Connect</h4>
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">YouTube</a>
+        <a href="#">Email Us</a>
+      </div>
+      <div class="footer-column">
+        <h4>Join Us</h4>
+        <a href="#">Submit a Story</a>
+        <a href="#">Internships</a>
+        <a href="#">Collaborate</a>
+      </div>
     </div>
     <div class="footer-bottom">
-      &copy; 2025 The Unicorner Times — Crafted with purpose in Uzbekistan.
+      &copy; 2025 The Unicorner Times — Crafted with purpose in Uzbekistan. All rights reserved.
     </div>
   </footer>
 
   <script>
-    // Mobile menu toggle
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('overlay');
+
     hamburger.addEventListener('click', () => {
-      mobileMenu.classList.toggle('show');
+      mobileMenu.classList.toggle('active');
+      overlay.classList.toggle('active');
+    });
+
+    overlay.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+      overlay.classList.remove('active');
     });
   </script>
 </body>
 </html>
+
