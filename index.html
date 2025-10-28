@@ -749,7 +749,7 @@
   }
 }
 </style>
-
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <!-- ===================== FOOTER SCRIPT ===================== -->
 <script>
 document.getElementById("newsletter-form").addEventListener("submit", function(e) {
@@ -767,6 +767,60 @@ document.getElementById("newsletter-form").addEventListener("submit", function(e
     emailInput.value = "";
   }
 });
+
+  
+  // 🔑 YOUR KEYS
+  const PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+  const SERVICE_ID = "YOUR_SERVICE_ID";
+  const TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+
+  emailjs.init(PUBLIC_KEY);
+
+  const popup = document.getElementById('signup-popup');
+  const form = document.getElementById('signup-form');
+  const profileIcon = document.getElementById('profile-icon');
+  const profileInfo = document.getElementById('profile-info');
+
+  // 🔹 Popup birinchi ochilganda chiqadi (faqat foydalanuvchi hali sign up qilmagan bo‘lsa)
+  window.addEventListener('load', () => {
+    const savedUser = localStorage.getItem('user');
+    if (!savedUser) popup.style.display = 'flex';
+    else showProfile(JSON.parse(savedUser));
+  });
+
+  // 🔹 Form yuborilganda
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
+    const email = document.getElementById('email').value.trim();
+
+    // Email yuborish
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, {
+      name: firstName + " " + lastName,
+      email: email
+    }).then(() => {
+      alert("✅ Welcome email sent!");
+      const user = { firstName, lastName, email };
+      localStorage.setItem('user', JSON.stringify(user));
+      popup.style.display = 'none';
+      showProfile(user);
+    }, (error) => {
+      alert("❌ Error: " + JSON.stringify(error));
+    });
+  });
+
+  // 🔹 Profilni ko‘rsatish
+  function showProfile(user) {
+    document.getElementById('userName').textContent = user.firstName + " " + user.lastName;
+    document.getElementById('userEmail').textContent = user.email;
+  }
+
+  // 🔹 Profil icon bosilganda ma’lumotlarni ko‘rsatish / yopish
+  profileIcon.addEventListener('click', () => {
+    profileInfo.style.display = profileInfo.style.display === 'block' ? 'none' : 'block';
+  });
 </script>
 </body>
 </html>
