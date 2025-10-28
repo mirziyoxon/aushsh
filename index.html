@@ -1,211 +1,199 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Books - The UCN Times</title>
-<style>
-  body { font-family: Arial, sans-serif; margin:0; background:#f9f9f9; }
-  header { background:#222; color:white; padding:10px 20px; position:relative; }
-  nav { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
-  .nav-left { font-weight:bold; font-size:18px; }
-  .nav-right { display:flex; gap:15px; }
-  .nav-right a { color:white; text-decoration:none; font-size:1rem; }
-  .nav-right a:hover { text-decoration:underline; }
-  .menu-btn { display:none; flex-direction:column; cursor:pointer; gap:5px; }
-  .menu-btn div { width:25px; height:3px; background:white; border-radius:2px; transition:.3s; }
-
-  @media (max-width:768px){
-    .nav-right { display:none; flex-direction:column; width:100%; background:#222; padding:15px 0; }
-    .nav-right.active { display:flex; }
-    .menu-btn { display:flex; }
-  }
-
-  main { padding:20px; }
-  .container { max-width:900px; margin:30px auto; padding:20px; background:white; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,.1); }
-  li { margin:12px 0; font-size:18px; }
-  a { text-decoration:none; color:#111; font-weight:bold; transition:.3s; cursor:pointer; }
-  a:hover { color:#0073e6; }
-
-  /* Modal */
-  .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:10000; }
-  .modal-content { background:white; padding:20px; border-radius:8px; width:90%; max-width:400px; }
-  .modal-content h2 { margin-top:0; }
-  .modal-content input[type=text], .modal-content input[type=email], .modal-content input[type=tel], .modal-content input[type=number] {
-    width:100%; padding:8px; margin:8px 0; border:1px solid #ccc; border-radius:4px;
-  }
-  .modal-content label { display:flex; align-items:center; gap:5px; margin:5px 0; }
-  .modal-content button { background:#0073e6; color:white; border:none; padding:10px 15px; border-radius:5px; cursor:pointer; }
-  .modal-content button:hover { background:#005bb5; }
-
-  /* Splash screen */
-  #splash { position:fixed; top:0; left:0; width:100%; height:100%; background:white; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:bold; z-index:1000; }
-  .loader { border:8px solid #f3f3f3; border-top:8px solid #333; border-radius:50%; width:60px; height:60px; animation:spin 1.2s linear infinite; }
-  @keyframes spin { 0% { transform:rotate(0deg); } 100% { transform:rotate(360deg); } }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Unicorner Reader — Articles · Journals · Books</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <style>
+    :root {
+      --accent:#111;--muted:#6b6b6b;--bg:#fff;--highlight:#e5e5e5;--max-width:1100px;
+    }
+    * { box-sizing:border-box; }
+    body { font-family:"Source Sans 3",system-ui,Arial; background:var(--bg); color:#111; margin:0; padding:0; }
+    header { border-bottom:1px solid #eee; padding:30px 20px; text-align:center; }
+    header h1 { font-family:"Merriweather",serif; font-size:36px; margin:0; }
+    header p { color:var(--muted); margin:6px 0 0; }
+    nav { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; max-width:var(--max-width); margin:20px auto; padding:0 20px; }
+    .nav-left a { text-decoration:none; color:var(--accent); font-weight:600; padding:8px 10px; border-radius:4px; }
+    .nav-left a:hover { background:var(--highlight); }
+    .search-box { display:flex; align-items:center; border:1px solid #ddd; border-radius:30px; padding:4px 10px; }
+    .search-box input { border:none; outline:none; background:transparent; padding:6px 8px; }
+    .search-box button { border:none; background:var(--accent); color:#fff; padding:6px 10px; border-radius:20px; cursor:pointer; }
+    .user-panel { position:relative; }
+    .user-bubble { width:42px; height:42px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; font-weight:700; }
+    .dropdown { display:none; position:absolute; right:0; top:50px; background:#fff; border:1px solid #ddd; border-radius:6px; padding:12px; width:200px; box-shadow:0 4px 20px rgba(0,0,0,0.1); }
+    .dropdown.show { display:block; }
+    main { display:grid; grid-template-columns:1fr 300px; gap:30px; max-width:var(--max-width); margin:20px auto; padding:0 20px; }
+    .card { border-bottom:1px solid #eee; padding:15px 0; }
+    .card h2 { font-family:"Merriweather",serif; margin-bottom:10px; }
+    .item { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #f2f2f2; }
+    .item a { text-decoration:none; color:var(--accent); }
+    .meta { color:var(--muted); font-size:13px; }
+    aside { border-left:1px solid #f0f0f0; padding-left:18px; }
+    footer { text-align:center; padding:30px; color:var(--muted); font-size:13px; border-top:1px solid #eee; margin-top:40px; }
+    .modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,0.45); display:none; align-items:center; justify-content:center; z-index:100; }
+    .modal-backdrop.show { display:flex; }
+    .modal { background:#fff; border-radius:8px; padding:20px; max-width:400px; width:100%; }
+    input[type=text], input[type=email] { width:100%; padding:10px; border:1px solid #ddd; border-radius:6px; }
+    .checkbox { display:flex; align-items:center; gap:8px; }
+    .btn { background:var(--accent); color:#fff; padding:10px 14px; border:none; border-radius:6px; cursor:pointer; }
+    .btn.secondary { background:#f5f5f5; color:#111; }
+  </style>
 </head>
 <body>
-
-<div id="splash">
-  <div class="loader"></div>
-</div>
-
-<header>
+  <header>
+    <h1>The Unicorner Reader</h1>
+    <p>Articles · Journals · Books — Explore and Read PDFs</p>
+  </header>
   <nav>
-    <div class="nav-left">Reader @ Books</div>
-    <div class="menu-btn" onclick="toggleMenu()">
-      <div></div>
-      <div></div>
-      <div></div>
+    <div class="nav-left">
+      <a href="#" data-section="articles">Articles</a>
+      <a href="#" data-section="journals">Journals</a>
+      <a href="#" data-section="books">Books</a>
     </div>
-    <div class="nav-right" id="navLinks">
-      <a href="https://unicorner.uz">Home</a>
-      <a href="https://unicorner.uz/about">About</a>
-      <a href="https://research.unicorner.uz">Research</a>
-      <a href="https://article.unicorner.uz">Articles</a>
-      <a href="https://unicorner.uz/publish">Publish</a>
+    <div class="nav-right">
+      <div class="search-box">
+        <input id="searchInput" type="text" placeholder="Search PDFs...">
+        <button id="searchBtn">Search</button>
+      </div>
+      <div class="user-panel">
+        <div id="userBubble" class="user-bubble">+</div>
+        <div id="userDropdown" class="dropdown">
+          <div><strong id="userName">Guest</strong></div>
+          <div id="userEmail" style="font-size:13px;color:gray">—</div>
+          <button id="logoutBtn" class="btn secondary" style="margin-top:10px;width:100%">Log out</button>
+        </div>
+      </div>
     </div>
   </nav>
-</header>
-
-<main id="content">
-  <h1>All Books</h1>
-  <div class="container">
-    <ul id="bookList">
-      <li><a data-src="books/Atomic Habits - unicorner.uz.pdf">Book 1: Atomic Habits - James Clear</a></li>
-      <li><a data-src="books/bell-alexander-graham - unicorner.uz.pdf">Book 2: Alexander Graham Bell - Harodl S. Osborne</a></li>
-      <li><a data-src="books/History Of English Literature (2000) - unicorner.uz.pdf">Book 3: History Of English Literature (2000) - Edward Albert</a></li>
-      <li><a data-src="books/Homes Odyssey - unicorner.uz.pdf">Book 4: Homes Odyssey - Ian Johnston</a></li>
-    </ul>
-  </div>
-</main>
-
-<!-- Register Modal -->
-<div class="modal" id="registerModal">
-  <div class="modal-content" id="modalContent">
-    <h2>Register to Access Books</h2>
-    <div id="step1">
-      <input type="text" id="fname" placeholder="First Name">
-      <input type="text" id="lname" placeholder="Last Name">
-      <input type="tel" id="phone" placeholder="Phone Number">
-      <input type="email" id="email" placeholder="Email">
-      <label><input type="checkbox" id="agree"> I agree to terms & conditions</label>
-      <button onclick="sendVerification()">Submit</button>
+  <main>
+    <section id="pdfSection">
+      <article class="card" data-category="articles">
+        <h2>Articles</h2>
+        <div class="item" data-title="design thinking"><a href="#" data-pdf="/pdfs/article1.pdf">Design Thinking in Action</a><div class="meta">By A. Author · 2025</div></div>
+        <div class="item" data-title="modern journalism"><a href="#" data-pdf="/pdfs/article2.pdf">Modern Journalism Explained</a><div class="meta">By B. Writer · 2024</div></div>
+      </article>
+      <article class="card" data-category="journals">
+        <h2>Journals</h2>
+        <div class="item" data-title="economic review"><a href="#" data-pdf="/pdfs/journal1.pdf">Economic Review Vol. 8</a><div class="meta">Editorial Team · 2025</div></div>
+      </article>
+      <article class="card" data-category="books">
+        <h2>Books</h2>
+        <div class="item" data-title="business insights"><a href="#" data-pdf="/pdfs/book1.pdf">Business Insights</a><div class="meta">M. Economist · 2023</div></div>
+      </article>
+    </section>
+    <aside>
+      <h3>About</h3>
+      <p style="font-size:14px;color:gray">Advanced prototype using localStorage and EmailJS verification system. Monthly re-registration required.</p>
+      <p id="accountStatus" style="font-size:14px;color:gray">You are browsing as <strong id="statusName">Guest</strong></p>
+    </aside>
+  </main>
+  <div id="modalBackdrop" class="modal-backdrop">
+    <div class="modal">
+      <div id="registerStep">
+        <h3>Register</h3>
+        <input id="fullname" type="text" placeholder="Full name">
+        <input id="email" type="email" placeholder="Email">
+        <div class="checkbox"><input id="agree" type="checkbox"> I agree to terms</div>
+        <button id="sendCodeBtn" class="btn">Send code</button>
+        <button id="closeModal" class="btn secondary">Cancel</button>
+        <p id="registerMsg" style="color:gray;font-size:13px"></p>
+      </div>
+      <div id="verifyStep" style="display:none">
+        <h3>Verification</h3>
+        <input id="verifCode" type="text" maxlength="6" placeholder="123456">
+        <button id="confirmCodeBtn" class="btn">Verify</button>
+        <button id="resendBtn" class="btn secondary">Resend</button>
+        <p id="verifyMsg" style="color:gray;font-size:13px"></p>
+      </div>
     </div>
-    <div id="step2" style="display:none;">
-      <p>Enter verification code sent to your email:</p>
-      <input type="number" id="verCode" placeholder="Verification Code">
-      <button onclick="checkCode()">Verify</button>
-    </div>
-    <p id="modalMsg"></p>
   </div>
-</div>
+  <footer>© The Unicorner Reader — NYT/New Yorker inspired design</footer>
+  <script>
+    // Shortcuts for selecting elements
+    const $ = s => document.querySelector(s);
+    const $$ = s => [...document.querySelectorAll(s)];
 
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script>
-emailjs.init("U61qjjpdisn3tPolI"); // <-- EmailJS user ID
+    // LocalStorage keys
+    const LS_USER='user_info', LS_VERIF='verif_info', LS_FAIL='fail_count', LS_LOCK='lock_time';
 
-// Splash screen
-setTimeout(() => { document.getElementById("splash").style.display="none"; document.getElementById("content").style.display="block"; }, 2000);
+    const userBubble=$('#userBubble'), dropdown=$('#userDropdown'), logout=$('#logoutBtn');
+    const modal=$('#modalBackdrop'), reg=$('#registerStep'), ver=$('#verifyStep');
 
-// Hamburger toggle
-function toggleMenu(){ document.getElementById("navLinks").classList.toggle("active"); }
+    // Initialize EmailJS (replace YOUR_PUBLIC_KEY)
+    (function(){ emailjs.init('U61qjjpdisn3tPolI'); })();
 
-// Check if already registered
-let registeredUser = JSON.parse(localStorage.getItem("registeredUser"));
-if(registeredUser){
-  unlockBooks();
-}
-
-// Click on book
-document.querySelectorAll("#bookList a").forEach(link=>{
-  link.addEventListener("click", function(e){
-    if(!registeredUser){
-      e.preventDefault();
-      document.getElementById("registerModal").style.display="flex";
-      currentLink = link; // save clicked link
+    function updateUI(){
+      const u=JSON.parse(localStorage.getItem(LS_USER)||'null');
+      if(!u){userBubble.textContent='+';$('#userName').textContent='Guest';$('#userEmail').textContent='—';$('#statusName').textContent='Guest';return;}
+      const initials=u.name.split(' ').map(x=>x[0]).join('').toUpperCase();
+      userBubble.textContent=initials;$('#userName').textContent=u.name;$('#userEmail').textContent=u.email;$('#statusName').textContent=u.name;
     }
-  });
-});
 
-let verificationCode = Math.floor(100000 + Math.random()*900000);
-let currentLink = null;
-let attempts = JSON.parse(localStorage.getItem("attempts")) || {count:0, blockedUntil:null};
+    userBubble.onclick=()=>dropdown.classList.toggle('show');
+    document.onclick=e=>{if(!dropdown.contains(e.target)&&!userBubble.contains(e.target))dropdown.classList.remove('show');};
+    logout.onclick=()=>{localStorage.removeItem(LS_USER);updateUI();alert('Logged out');};
 
-// Send EmailJS code
-function sendVerification(){
-  const fname = document.getElementById("fname").value.trim();
-  const lname = document.getElementById("lname").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const agree = document.getElementById("agree").checked;
+    function showModal(){modal.classList.add('show');reg.style.display='block';ver.style.display='none';}
+    function hideModal(){modal.classList.remove('show');}
 
-  if(!fname || !lname || !phone || !email || !agree){
-    alert("Please fill all fields and accept terms");
-    return;
-  }
+    function checkReg(){
+      const u=JSON.parse(localStorage.getItem(LS_USER)||'null');
+      if(!u){showModal();return false;}
+      if(!u.verifiedAt){showModal();return false;}
+      const days=(Date.now()-new Date(u.verifiedAt))/86400000;
+      if(days>30){alert('Re-register required');showModal();return false;}
+      return true;
+    }
 
-  // Send email via EmailJS
-  emailjs.send("service_ob14lw2","template_inq4rb4",{
-    fname: fname,
-    lname: lname,
-    phone: phone,
-    email: email,
-    code: verificationCode
-  }).then(res=>{
-    document.getElementById("step1").style.display="none";
-    document.getElementById("step2").style.display="block";
-  }, err=>{
-    alert("Failed to send email, try again.");
-  });
-}
+    // PDF click listener
+    $$('#pdfSection a').forEach(a=>a.onclick=e=>{e.preventDefault();if(checkReg())window.open(a.dataset.pdf,'_blank');});
 
-// Check verification code
-function checkCode(){
-  const code = document.getElementById("verCode").value;
-  const now = new Date().getTime();
-
-  if(attempts.blockedUntil && now<attempts.blockedUntil){
-    alert("Too many attempts. Try later.");
-    return;
-  }
-
-  if(code == verificationCode){
-    alert("You have successfully registered!");
-    const user = {
-      fname: document.getElementById("fname").value.trim(),
-      lname: document.getElementById("lname").value.trim(),
-      email: document.getElementById("email").value.trim(),
-      phone: document.getElementById("phone").value.trim()
+    // Send verification code via EmailJS
+    $('#sendCodeBtn').onclick=()=>{
+      const name=$('#fullname').value.trim(),email=$('#email').value.trim(),agree=$('#agree').checked;
+      if(!name||!email||!agree){$('#registerMsg').textContent='Please fill all fields';return;}
+      const code=Math.floor(100000+Math.random()*900000);
+      localStorage.setItem(LS_VERIF,JSON.stringify({code,expires:Date.now()+900000,name,email}));
+      localStorage.setItem(LS_USER,JSON.stringify({name,email}));
+      emailjs.send('service_9h9d5jo','template_inq4rb4',{user_name:name,verification_code:code,to_email:email})
+      .then(()=>{$('#registerMsg').textContent='Code sent! Check your email';reg.style.display='none';ver.style.display='block';})
+      .catch(()=>$('#registerMsg').textContent='Error sending email');
     };
-    localStorage.setItem("registeredUser", JSON.stringify(user));
-    document.getElementById("registerModal").style.display="none";
-    registeredUser = user;
-    unlockBooks();
-    attempts = {count:0, blockedUntil:null};
-    localStorage.setItem("attempts", JSON.stringify(attempts));
-  }else{
-    attempts.count++;
-    localStorage.setItem("attempts", JSON.stringify(attempts));
-    if(attempts.count>=3){
-      attempts.blockedUntil = new Date().getTime() + 24*60*60*1000;
-      localStorage.setItem("attempts", JSON.stringify(attempts));
-      alert("Too many failed attempts. Try after 24 hours.");
-      document.getElementById("registerModal").style.display="none";
-    }else{
-      alert("Incorrect code. Retry.");
-    }
-  }
-}
 
-// Unlock books
-function unlockBooks(){
-  document.querySelectorAll("#bookList a").forEach(link=>{
-    const realSrc = link.getAttribute("data-src");
-    link.setAttribute("href", realSrc);
-    link.setAttribute("target","_blank");
-  });
-}
-</script>
+    // Verify code
+    $('#confirmCodeBtn').onclick=()=>{
+      const input=$('#verifCode').value.trim();
+      const v=JSON.parse(localStorage.getItem(LS_VERIF)||'null');
+      if(!v){$('#verifyMsg').textContent='No code';return;}
+      if(Date.now()>v.expires){$('#verifyMsg').textContent='Code expired';return;}
+      if(input===String(v.code)){
+        const u=JSON.parse(localStorage.getItem(LS_USER));u.verifiedAt=new Date().toISOString();
+        localStorage.setItem(LS_USER,JSON.stringify(u));localStorage.removeItem(LS_VERIF);
+        alert('Verified!');hideModal();updateUI();
+      } else {
+        let f=+localStorage.getItem(LS_FAIL)||0;f++;localStorage.setItem(LS_FAIL,f);
+        if(f>=3){localStorage.setItem(LS_LOCK,Date.now()+86400000);$('#verifyMsg').textContent='Too many attempts. Try again in 24h';}
+        else $('#verifyMsg').textContent=`Wrong code (${3-f} attempts left)`;
+      }
+    };
+
+    $('#closeModal').onclick=()=>hideModal();
+
+    // Search functionality
+    $('#searchBtn').onclick=()=>{
+      const q=$('#searchInput').value.toLowerCase();
+      $$('#pdfSection .item').forEach(it=>{
+        const title=it.dataset.title.toLowerCase();
+        it.style.display=title.includes(q)?'flex':'none';
+      });
+    };
+
+    window.onload=updateUI;
+  </script>
 </body>
 </html>
