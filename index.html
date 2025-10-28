@@ -1,290 +1,211 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Publish — The Unicorner Times</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Books - The UCN Times</title>
+<style>
+  body { font-family: Arial, sans-serif; margin:0; background:#f9f9f9; }
+  header { background:#222; color:white; padding:10px 20px; position:relative; }
+  nav { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+  .nav-left { font-weight:bold; font-size:18px; }
+  .nav-right { display:flex; gap:15px; }
+  .nav-right a { color:white; text-decoration:none; font-size:1rem; }
+  .nav-right a:hover { text-decoration:underline; }
+  .menu-btn { display:none; flex-direction:column; cursor:pointer; gap:5px; }
+  .menu-btn div { width:25px; height:3px; background:white; border-radius:2px; transition:.3s; }
 
-  <style>
-    :root {
-      --accent:#0b3d91;
-      --muted:#6b7280;
-      --bg:#ffffff;
-    }
-    body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      background: var(--bg);
-      color: #111;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 0 16px;
-      min-height: 100vh;
-    }
-    nav {
-      width: 100%;
-      max-width: 720px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 0;
-      border-bottom: 1px solid #eee;
-    }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-      color: var(--accent);
-      font-family: 'Merriweather', serif;
-      font-weight: 700;
-      font-size: 18px;
-    }
-    .logo img {
-      height: 36px;
-      border-radius: 6px;
-    }
-    .home-btn {
-      background: var(--accent);
-      color: #fff;
-      text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-    }
-    main {
-      width: 100%;
-      max-width: 720px;
-      padding: 20px 0 60px;
-    }
-    h1 {
-      font-family: 'Merriweather', serif;
-      font-size: 22px;
-      text-align: center;
-      margin-bottom: 16px;
-    }
-    form {
-      background: #fff;
-      border-radius: 14px;
-      padding: 24px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
-    }
-    label {
-      display: block;
-      font-weight: 600;
-      margin-top: 12px;
-      margin-bottom: 6px;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 10px 12px;
-      font-size: 15px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-family: 'Inter', sans-serif;
-      resize: vertical;
-    }
-    textarea { min-height: 80px; }
-    .auto-fields {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .checkbox {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 14px;
-    }
-    button {
-      margin-top: 18px;
-      width: 100%;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      padding: 12px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    button:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-    }
-    .msg {
-      margin-top: 12px;
-      text-align: center;
-      font-size: 14px;
-    }
-    footer {
-      margin-top: auto;
-      padding: 30px 0;
-      text-align: center;
-      color: var(--muted);
-      font-size: 13px;
-    }
-  </style>
+  @media (max-width:768px){
+    .nav-right { display:none; flex-direction:column; width:100%; background:#222; padding:15px 0; }
+    .nav-right.active { display:flex; }
+    .menu-btn { display:flex; }
+  }
+
+  main { padding:20px; }
+  .container { max-width:900px; margin:30px auto; padding:20px; background:white; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,.1); }
+  li { margin:12px 0; font-size:18px; }
+  a { text-decoration:none; color:#111; font-weight:bold; transition:.3s; cursor:pointer; }
+  a:hover { color:#0073e6; }
+
+  /* Modal */
+  .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:10000; }
+  .modal-content { background:white; padding:20px; border-radius:8px; width:90%; max-width:400px; }
+  .modal-content h2 { margin-top:0; }
+  .modal-content input[type=text], .modal-content input[type=email], .modal-content input[type=tel], .modal-content input[type=number] {
+    width:100%; padding:8px; margin:8px 0; border:1px solid #ccc; border-radius:4px;
+  }
+  .modal-content label { display:flex; align-items:center; gap:5px; margin:5px 0; }
+  .modal-content button { background:#0073e6; color:white; border:none; padding:10px 15px; border-radius:5px; cursor:pointer; }
+  .modal-content button:hover { background:#005bb5; }
+
+  /* Splash screen */
+  #splash { position:fixed; top:0; left:0; width:100%; height:100%; background:white; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:bold; z-index:1000; }
+  .loader { border:8px solid #f3f3f3; border-top:8px solid #333; border-radius:50%; width:60px; height:60px; animation:spin 1.2s linear infinite; }
+  @keyframes spin { 0% { transform:rotate(0deg); } 100% { transform:rotate(360deg); } }
+</style>
 </head>
 <body>
 
+<div id="splash">
+  <div class="loader"></div>
+</div>
+
+<header>
   <nav>
-    <a href="https://unicorner.uz" class="logo">
-      <img src="https://unicorner.uz/publish/logo.jpg" alt="Unicorner Logo">
-      The Unicorner Times
-    </a>
-    <a href="index.html" class="home-btn">Home</a>
+    <div class="nav-left">Reader @ Books</div>
+    <div class="menu-btn" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="nav-right" id="navLinks">
+      <a href="https://unicorner.uz">Home</a>
+      <a href="https://unicorner.uz/about">About</a>
+      <a href="https://research.unicorner.uz">Research</a>
+      <a href="https://article.unicorner.uz">Articles</a>
+      <a href="https://unicorner.uz/publish">Publish</a>
+    </div>
   </nav>
+</header>
 
-  <main>
-    <h1>Submit for Publication</h1>
+<main id="content">
+  <h1>All Books</h1>
+  <div class="container">
+    <ul id="bookList">
+      <li><a data-src="books/Atomic Habits - unicorner.uz.pdf">Book 1: Atomic Habits - James Clear</a></li>
+      <li><a data-src="books/bell-alexander-graham - unicorner.uz.pdf">Book 2: Alexander Graham Bell - Harodl S. Osborne</a></li>
+      <li><a data-src="books/History Of English Literature (2000) - unicorner.uz.pdf">Book 3: History Of English Literature (2000) - Edward Albert</a></li>
+      <li><a data-src="books/Homes Odyssey - unicorner.uz.pdf">Book 4: Homes Odyssey - Ian Johnston</a></li>
+    </ul>
+  </div>
+</main>
 
-    <form id="publish-form">
-      <label for="fullname">Full Name</label>
-      <input type="text" id="fullname" name="fullname" required placeholder="Your full name" />
+<!-- Register Modal -->
+<div class="modal" id="registerModal">
+  <div class="modal-content" id="modalContent">
+    <h2>Register to Access Books</h2>
+    <div id="step1">
+      <input type="text" id="fname" placeholder="First Name">
+      <input type="text" id="lname" placeholder="Last Name">
+      <input type="tel" id="phone" placeholder="Phone Number">
+      <input type="email" id="email" placeholder="Email">
+      <label><input type="checkbox" id="agree"> I agree to terms & conditions</label>
+      <button onclick="sendVerification()">Submit</button>
+    </div>
+    <div id="step2" style="display:none;">
+      <p>Enter verification code sent to your email:</p>
+      <input type="number" id="verCode" placeholder="Verification Code">
+      <button onclick="checkCode()">Verify</button>
+    </div>
+    <p id="modalMsg"></p>
+  </div>
+</div>
 
-      <div class="auto-fields">
-        <div>
-          <label for="location">Location</label>
-          <input type="text" id="location" name="location" readonly />
-        </div>
-        <div>
-          <label for="country">Country</label>
-          <input type="text" id="country" name="country" readonly />
-        </div>
-      </div>
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+emailjs.init("U61qjjpdisn3tPolI"); // <-- EmailJS user ID
 
-      <div class="auto-fields">
-        <div>
-          <label for="date">Date</label>
-          <input type="text" id="date" name="date" readonly />
-        </div>
-        <div>
-          <label for="time">Time</label>
-          <input type="text" id="time" name="time" readonly />
-        </div>
-      </div>
+// Splash screen
+setTimeout(() => { document.getElementById("splash").style.display="none"; document.getElementById("content").style.display="block"; }, 2000);
 
-      <label for="type">Publication Type</label>
-      <select id="type" name="type" required>
-        <option value="">Select type</option>
-        <option value="Article">Article</option>
-        <option value="Research Paper">Research Paper</option>
-        <option value="News">News</option>
-      </select>
+// Hamburger toggle
+function toggleMenu(){ document.getElementById("navLinks").classList.toggle("active"); }
 
-      <label for="phone">Phone Number</label>
-      <input type="text" id="phone" name="phone" readonly />
+// Check if already registered
+let registeredUser = JSON.parse(localStorage.getItem("registeredUser"));
+if(registeredUser){
+  unlockBooks();
+}
 
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" required placeholder="you@example.com" />
-
-      <div class="checkbox">
-        <input type="checkbox" id="consent" />
-        <label for="consent">I agree to receive confirmation email</label>
-      </div>
-
-      <button id="submit-btn" type="submit" disabled>Submit</button>
-
-      <div class="msg" id="msg"></div>
-    </form>
-  </main>
-
-  <footer>
-    © 2025 Unicorner Media Group
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>
-    // 🔹 Initialize EmailJS
-    (function() {
-      emailjs.init({ publicKey: "jc2imD9DTsfY_I-bf" });
-    })();
-
-    const form = document.getElementById("publish-form");
-    const msg = document.getElementById("msg");
-    const submitBtn = document.getElementById("submit-btn");
-    const consent = document.getElementById("consent");
-
-    consent.addEventListener("change", () => {
-      submitBtn.disabled = !consent.checked;
-    });
-
-    // 🔹 Auto-fill date and time
-    const now = new Date();
-    document.getElementById("date").value = now.toLocaleDateString();
-    document.getElementById("time").value = now.toLocaleTimeString();
-
-    // 🔹 Detect location
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async (pos) => {
-        const { latitude, longitude } = pos.coords;
-        try {
-          const res = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
-          const data = await res.json();
-          document.getElementById("location").value = data.city || data.locality || "Unknown";
-          document.getElementById("country").value = data.countryName || "Unknown";
-        } catch {
-          document.getElementById("location").value = "Unknown";
-          document.getElementById("country").value = "Unknown";
-        }
-      }, () => {
-        document.getElementById("location").value = "Location blocked";
-        document.getElementById("country").value = "Unknown";
-      });
-    }
-
-   // 🔹 Detect country calling code for phone input (auto prefix)
-const phoneInput = document.getElementById("phone");
-
-fetch("https://ipapi.co/json/")
-  .then(res => res.json())
-  .then(data => {
-    const code = data.country_calling_code || "+000";
-    const country = data.country_name || "Unknown";
-    phoneInput.value = code + " "; // foydalanuvchi shu yerga raqam yozadi
-    phoneInput.placeholder = code + " your number";
-    phoneInput.removeAttribute("readonly");
-  })
-  .catch(() => {
-    phoneInput.value = "+000 ";
-    phoneInput.placeholder = "+000 your number";
-    phoneInput.removeAttribute("readonly");
-  });
-
-
-    // 🔹 Send form via EmailJS
-    form.addEventListener("submit", async (e) => {
+// Click on book
+document.querySelectorAll("#bookList a").forEach(link=>{
+  link.addEventListener("click", function(e){
+    if(!registeredUser){
       e.preventDefault();
-      msg.textContent = "Sending...";
-      msg.style.color = "#555";
+      document.getElementById("registerModal").style.display="flex";
+      currentLink = link; // save clicked link
+    }
+  });
+});
 
-      const params = {
-        fullname: form.fullname.value,
-        location: form.location.value,
-        country: form.country.value,
-        date: form.date.value,
-        time: form.time.value,
-        type: form.type.value,
-        phone: form.phone.value,
-        email: form.email.value,
-      };
+let verificationCode = Math.floor(100000 + Math.random()*900000);
+let currentLink = null;
+let attempts = JSON.parse(localStorage.getItem("attempts")) || {count:0, blockedUntil:null};
 
-      try {
-        await emailjs.send("service_j0gqa0b", "template_zdy4roo", params);
-        msg.textContent = "✅ Sent successfully! Check your email.";
-        msg.style.color = "green";
-        form.reset();
-        submitBtn.disabled = true;
-      } catch (error) {
-        console.error(error);
-        msg.textContent = "❌ Failed to send. Try again later.";
-        msg.style.color = "red";
-      }
-    });
-  </script>
+// Send EmailJS code
+function sendVerification(){
+  const fname = document.getElementById("fname").value.trim();
+  const lname = document.getElementById("lname").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const agree = document.getElementById("agree").checked;
 
+  if(!fname || !lname || !phone || !email || !agree){
+    alert("Please fill all fields and accept terms");
+    return;
+  }
+
+  // Send email via EmailJS
+  emailjs.send("service_ob14lw2","template_inq4rb4",{
+    fname: fname,
+    lname: lname,
+    phone: phone,
+    email: email,
+    code: verificationCode
+  }).then(res=>{
+    document.getElementById("step1").style.display="none";
+    document.getElementById("step2").style.display="block";
+  }, err=>{
+    alert("Failed to send email, try again.");
+  });
+}
+
+// Check verification code
+function checkCode(){
+  const code = document.getElementById("verCode").value;
+  const now = new Date().getTime();
+
+  if(attempts.blockedUntil && now<attempts.blockedUntil){
+    alert("Too many attempts. Try later.");
+    return;
+  }
+
+  if(code == verificationCode){
+    alert("You have successfully registered!");
+    const user = {
+      fname: document.getElementById("fname").value.trim(),
+      lname: document.getElementById("lname").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      phone: document.getElementById("phone").value.trim()
+    };
+    localStorage.setItem("registeredUser", JSON.stringify(user));
+    document.getElementById("registerModal").style.display="none";
+    registeredUser = user;
+    unlockBooks();
+    attempts = {count:0, blockedUntil:null};
+    localStorage.setItem("attempts", JSON.stringify(attempts));
+  }else{
+    attempts.count++;
+    localStorage.setItem("attempts", JSON.stringify(attempts));
+    if(attempts.count>=3){
+      attempts.blockedUntil = new Date().getTime() + 24*60*60*1000;
+      localStorage.setItem("attempts", JSON.stringify(attempts));
+      alert("Too many failed attempts. Try after 24 hours.");
+      document.getElementById("registerModal").style.display="none";
+    }else{
+      alert("Incorrect code. Retry.");
+    }
+  }
+}
+
+// Unlock books
+function unlockBooks(){
+  document.querySelectorAll("#bookList a").forEach(link=>{
+    const realSrc = link.getAttribute("data-src");
+    link.setAttribute("href", realSrc);
+    link.setAttribute("target","_blank");
+  });
+}
+</script>
 </body>
 </html>
