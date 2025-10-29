@@ -1,120 +1,81 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Unicorner LIVE — Dual Broadcast</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unicorner Live — Dual Video Stream</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
+  /* === Base Reset and Colors === */
   :root {
-    --bg: #f8f8f8;
-    --panel: #fff;
+    --bg: #f5f5f5;
     --text: #111;
-    --muted: #6a6a6a;
-    --border: #e5e5e5;
-    --accent: #0b1724;
+    --muted: #555;
+    --accent: #000;
+    --panel: #fff;
+    --border: #ddd;
   }
 
-  * { box-sizing: border-box; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    margin: 0;
-    font-family: "Source Sans 3", system-ui, sans-serif;
     background: var(--bg);
     color: var(--text);
+    font-family: "Inter", sans-serif;
+    line-height: 1.6;
   }
 
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-
+  /* === Header === */
   header {
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 16px;
   }
 
   .brand {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .logo {
-    width: 42px;
-    height: 42px;
-    border-radius: 8px;
-    background: #111;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: "Merriweather", serif;
-    font-size: 20px;
-    font-weight: 700;
-  }
-
-  .brand h1 {
-    margin: 0;
-    font-family: "Merriweather", serif;
-    font-size: 20px;
-    color: var(--accent);
-  }
-
-  .brand p {
-    margin: 4px 0 0;
-    color: var(--muted);
-    font-size: 13px;
+    font-family: "Playfair Display", serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
   }
 
   .clock {
-    text-align: right;
+    font-size: 0.9rem;
     color: var(--muted);
-    font-size: 13px;
-  }
-  .clock span {
-    display: block;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
-    margin-top: 3px;
   }
 
-  /* Dual video layout */
+  /* === Main Layout === */
   main {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
     gap: 20px;
-    margin-top: 24px;
-    justify-content: center;
+    padding: 30px 5%;
   }
 
   .video-card {
-    flex: 1 1 480px;
-    max-width: 520px;
     background: var(--panel);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .video-wrap {
     position: relative;
     width: 100%;
-    border-radius: 8px;
-    overflow: hidden;
+    padding-top: 56.25%; /* Default 16:9 */
     background: #000;
   }
 
-  .video-portrait::before {
-    content: "";
-    display: block;
-    padding-top: 177.77%; /* 9:16 ratio */
+  .video-portrait .video-wrap {
+    padding-top: 177.77%; /* 9:16 for shorts */
   }
 
   .video-wrap iframe {
@@ -122,118 +83,130 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    border: 0;
+    border: none;
   }
 
-  .meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-    flex-wrap: wrap;
-    gap: 8px;
-    font-size: 13px;
+  .video-info {
+    padding: 18px 20px;
   }
 
-  .btn {
-    background: transparent;
-    border: 1px solid var(--border);
-    padding: 6px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 13px;
-    color: var(--text);
-    transition: 0.2s;
+  .video-info h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 1.1rem;
+    margin-bottom: 6px;
   }
-  .btn:hover { background: #f2f2f2; }
-  .btn.primary {
+
+  .video-info p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+
+  .video-info button {
+    padding: 8px 14px;
+    border: none;
     background: var(--accent);
     color: #fff;
-    border: 0;
-  }
-  .btn.primary:hover {
-    background: #000;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
   }
 
+  .video-info button:hover {
+    background: #222;
+  }
+
+  /* === Footer === */
   footer {
-    margin-top: 30px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 13px;
     border-top: 1px solid var(--border);
-    padding-top: 10px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding: 20px;
   }
 
-  @media (max-width: 800px) {
+  /* === Responsive Adjustments === */
+  @media (max-width: 960px) {
+    main {
+      grid-template-columns: 1fr;
+      padding: 20px 4%;
+    }
+
+    .video-card {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 600px) {
     header {
       flex-direction: column;
-      align-items: flex-start;
       gap: 10px;
+      text-align: center;
     }
-    .clock {
-      text-align: left;
+    .video-info h2 {
+      font-size: 1rem;
+    }
+    .video-info p {
+      font-size: 0.85rem;
     }
   }
 </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="brand">
-        <div class="logo">U</div>
-        <div>
-          <h1>Unicorner LIVE</h1>
-          <p>Dual Broadcast View — Standard + Shorts</p>
-        </div>
-      </div>
-      <div class="clock">
-        Local time
-        <span id="localClock">--:--</span>
-      </div>
-    </header>
 
-    <main>
-      <!-- Left: Standard broadcast -->
-      <section class="video-card">
-        <div class="video-wrap video-portrait">
-          <iframe
-            src="https://www.youtube.com/embed/xEgRTpM6Q4k?autoplay=0&modestbranding=1&rel=0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            title="Main Broadcast"></iframe>
-        </div>
-        <div class="meta">
-          <div>Broadcast: <strong>NMA GAP Podcast</strong></div>
-          <button class="btn primary" onclick="window.open('https://youtu.be/xEgRTpM6Q4k','_blank')">Watch on YouTube</button>
-        </div>
-      </section>
+<header>
+  <div class="brand">Unicorner Live</div>
+  <div class="clock" id="localClock">--:--</div>
+</header>
 
-      <!-- Right: Shorts -->
-      <section class="video-card">
-        <div class="video-wrap video-portrait">
-          <iframe
-            src="https://www.youtube.com/embed/qk6kiUpR5BM?autoplay=0&modestbranding=1&rel=0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            title="Shorts"></iframe>
-        </div>
-        <div class="meta">
-          <div>Shorts: <strong>Feature Highlight</strong></div>
-          <button class="btn" onclick="window.open('https://youtube.com/shorts/qk6kiUpR5BM?si=gthId9vrCCQoERK2','_blank')">View Shorts</button>
-        </div>
-      </section>
-    </main>
+<main>
+  <!-- Main 16:9 Video -->
+  <section class="video-card">
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/xEgRTpM6Q4k?modestbranding=1&rel=0"
+        title="Main Broadcast"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+    <div class="video-info">
+      <h2>Main Broadcast — The Fiscal Frontier</h2>
+      <p>Join our live discussion on economics, innovation, and growth.</p>
+      <button onclick="window.open('https://youtu.be/xEgRTpM6Q4k','_blank')">Watch on YouTube</button>
+    </div>
+  </section>
 
-    <footer>© 2025 Unicorner Live — Dual Broadcast Layout</footer>
-  </div>
+  <!-- Shorts 9:16 Video -->
+  <section class="video-card video-portrait">
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/qk6kiUpR5BM?modestbranding=1&rel=0"
+        title="Shorts Segment"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+    <div class="video-info">
+      <h2>Shorts Feature — Market in 60 Seconds</h2>
+      <p>Quick takes from today’s financial world.</p>
+      <button onclick="window.open('https://youtube.com/shorts/qk6kiUpR5BM?si=gthId9vrCCQoERK2','_blank')">View on YouTube</button>
+    </div>
+  </section>
+</main>
 
-  <script>
-    function updateClock() {
-      const now = new Date();
-      document.getElementById('localClock').textContent = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-    }
-    updateClock();
-    setInterval(updateClock, 1000);
-  </script>
+<footer>
+  © 2025 Unicorner Live — Designed in NYT aesthetic for clarity & depth
+</footer>
+
+<script>
+  // Dynamic clock updater
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('localClock').textContent =
+      now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+</script>
+
 </body>
 </html>
