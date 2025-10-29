@@ -3,55 +3,28 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Unicorner Research — Papers</title>
+  <title>Unicorner Research — Papers (external PDFs)</title>
 
-  <!-- Fonts: a neutral sans + serif for headings (scholar-like) -->
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    /* --------------------
-       Design tokens
-       -------------------- */
-    :root{
-      --bg:#fbfbfb;
-      --panel:#fff;
-      --muted:#6b6b6b;
-      --text:#0b0b0b;
-      --accent:#0b1724;
-      --border:#e8e8e8;
-      --max-width:1200px;
-      --radius:10px;
-    }
-
-    /* Basic reset */
+    :root{--bg:#fbfbfb;--panel:#fff;--muted:#6b6b6b;--text:#0b0b0b;--accent:#0b1724;--border:#e8e8e8;--max-width:1200px}
     *{box-sizing:border-box}
-    body{margin:0;font-family:"Inter",system-ui,Arial;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased}
-    a{color:inherit;text-decoration:none}
-    button{font-family:inherit}
-
-    /* Page container */
+    body{margin:0;font-family:"Inter",system-ui,Arial;color:var(--text);background:var(--bg)}
+    a{color:inherit}
     .wrap{max-width:var(--max-width);margin:36px auto;padding:20px}
-
-    /* Header */
     header.site{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:18px}
     .brand{display:flex;gap:14px;align-items:center}
     .brand .logo{width:56px;height:56px;border-radius:8px;background:linear-gradient(180deg,#111,#444);color:#fff;display:grid;place-items:center;font-weight:700;font-family:"Merriweather",serif}
     .brand h1{font-family:"Merriweather",serif;margin:0;font-size:22px}
     .brand p{margin:4px 0 0;color:var(--muted);font-size:13px}
-
-    /* Toolbar: search, filters */
     .toolbar{display:flex;gap:12px;align-items:center;margin-top:8px;flex-wrap:wrap}
     .search{flex:1;display:flex;border:1px solid var(--border);background:var(--panel);padding:6px;border-radius:999px;align-items:center;gap:8px}
     .search input{border:0;outline:none;padding:8px 6px;font-size:14px;background:transparent;width:100%}
     .select, .btn{padding:8px 12px;border-radius:8px;border:1px solid var(--border);background:var(--panel);cursor:pointer}
     .btn.primary{background:var(--accent);color:#fff;border:0}
-    .filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-
-    /* Layout: main + sidebar */
     .layout{display:grid;grid-template-columns:1fr 320px;gap:22px;margin-top:18px}
     @media (max-width:980px){.layout{grid-template-columns:1fr}}
-
-    /* Paper list styles */
     .list{background:transparent}
     .paper{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:12px;display:flex;gap:16px;align-items:flex-start}
     .paper .meta{display:flex;flex-direction:column;gap:6px}
@@ -61,18 +34,12 @@
     .paper .abstract{margin-top:8px;color:#333;font-size:14px}
     .paper .actions{margin-left:auto;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
     .small{font-size:13px;color:var(--muted)}
-
-    /* Tags */
     .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
     .tag{background:#f3f3f3;padding:6px 8px;border-radius:999px;font-size:12px;border:1px solid #eee;color:var(--muted)}
-
-    /* Sidebar */
     aside.panel{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px;position:sticky;top:20px;height:fit-content}
     .side-section{margin-bottom:16px}
     .side-section h4{margin:0 0 10px 0;font-family:"Merriweather",serif}
     .metric{display:flex;justify-content:space-between;padding:8px 0;border-top:1px dashed #f0f0f0}
-
-    /* Modal (paper detail) */
     .modal-backdrop{position:fixed;inset:0;background:rgba(11,17,23,0.5);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
     .modal-backdrop.show{display:flex}
     .modal{background:var(--panel);max-width:900px;width:100%;border-radius:10px;padding:20px;max-height:90vh;overflow:auto;border:1px solid var(--border)}
@@ -80,34 +47,23 @@
     .modal h2{font-family:"Merriweather",serif;margin:0}
     .modal .modal-actions{margin-left:auto;display:flex;gap:8px;align-items:center}
     .citation{background:#fafafa;border:1px dashed #eee;padding:12px;border-radius:8px;margin-top:14px;font-family:monospace;font-size:13px;color:#222}
-
-    /* small helpers */
     .muted{color:var(--muted)}
     .center{display:grid;place-items:center}
     .link {color:var(--accent);text-decoration:underline;cursor:pointer}
-
-    /* responsive tweaks */
-    @media (max-width:600px){
-      .paper{flex-direction:column}
-      .paper .actions{align-items:stretch;margin-left:0}
-      .search{width:100%}
-    }
+    @media (max-width:600px){.paper{flex-direction:column}.paper .actions{align-items:stretch;margin-left:0}.search{width:100%}}
   </style>
 </head>
 <body>
   <div class="wrap">
-
-    <!-- Header / Brand -->
     <header class="site">
       <div class="brand">
         <div class="logo" aria-hidden="true">UR</div>
         <div>
           <h1>Unicorner Research</h1>
-          <p>Aggregate: SSRN · ResearchGate · Google Scholar — prototype listing & viewer</p>
+          <p>Direct links to SSRN · ResearchGate · Google Scholar PDFs</p>
         </div>
       </div>
 
-      <!-- Simple toolbar: search + sort + tag filters -->
       <div style="width:420px">
         <div class="toolbar">
           <div class="search" role="search" style="flex:1">
@@ -125,21 +81,12 @@
       </div>
     </header>
 
-    <!-- The page layout: list + sidebar -->
     <div class="layout">
-
-      <!-- Main paper list -->
       <main>
-        <div id="list" class="list" aria-live="polite">
-          <!-- Papers will be injected here by JS -->
-        </div>
-
-        <!-- Pagination (simple) -->
+        <div id="list" class="list" aria-live="polite"></div>
         <div id="pager" style="display:flex;gap:8px;justify-content:center;margin-top:14px"></div>
-
       </main>
 
-      <!-- Sidebar with metrics / filters / saved library -->
       <aside class="panel">
         <div class="side-section">
           <h4>Filters</h4>
@@ -165,7 +112,6 @@
     </div>
   </div>
 
-  <!-- Modal for paper details -->
   <div id="modal" class="modal-backdrop" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="top">
@@ -175,7 +121,7 @@
         </div>
         <div class="modal-actions">
           <button id="saveBtn" class="btn select">Save</button>
-          <button id="downloadBtn" class="btn select">Download PDF</button>
+          <button id="downloadBtn" class="btn select">Open Source</button>
           <button id="closeModal" class="btn">Close</button>
         </div>
       </div>
@@ -205,14 +151,11 @@
   </div>
 
   <script>
-    /* ======================================================
-       Sample dataset
-       Replace these sample papers with real entries (SSRN / RG / Google Scholar links)
-       Each paper object includes:
-       - id, title, authors (array), year, venue, abstract, tags (array)
-       - pdf (URL), links: {ssrn, researchgate, scholar}
-       - citations (simulated count)
-       ====================================================== */
+    /* ----------------------------
+       SAMPLE PAPERS (external links)
+       Replace the links with actual SSRN / ResearchGate / Scholar URLs
+       Each 'links' should include researchgate and/or ssrn and/or scholar
+       ---------------------------- */
     const PAPERS = [
       {
         id:'p1',
@@ -222,10 +165,9 @@
         venue:'Journal of Development Economics',
         abstract:'This paper examines structural change using a multi-sector dynamic model. We estimate ... (sample abstract).',
         tags:['economics','policy'],
-        pdf:'/pdfs/structural_change.pdf',
         links:{
-          ssrn:'https://ssrn.com/abstract=1234567',
-          researchgate:'https://www.researchgate.net/publication/1234567',
+          researchgate:'https://www.researchgate.net/publication/Example_Structural_Change_and_Growth',
+          ssrn:'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1234567',
           scholar:'https://scholar.google.com/scholar?q=Structural+Change+and+Growth'
         },
         citations:128
@@ -238,10 +180,9 @@
         venue:'SSRN Working Paper',
         abstract:'We apply a suite of machine learning models to macroeconomic forecasting tasks and show ...',
         tags:['ai','finance'],
-        pdf:'/pdfs/ml_macro.pdf',
         links:{
-          ssrn:'https://ssrn.com/abstract=2345678',
-          researchgate:'https://www.researchgate.net/publication/2345678',
+          researchgate:'https://www.researchgate.net/publication/Example_ML_Macro_Forecasting',
+          ssrn:'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2345678',
           scholar:'https://scholar.google.com/scholar?q=Machine+Learning+for+Macro-Forecasting'
         },
         citations:54
@@ -254,40 +195,25 @@
         venue:'Policy Research Working Paper',
         abstract:'An empirical analysis of fiscal instruments and their distributional consequences ...',
         tags:['policy','finance'],
-        pdf:'/pdfs/fiscal_policy.pdf',
         links:{
-          ssrn:'https://ssrn.com/abstract=3456789',
-          researchgate:'https://www.researchgate.net/publication/3456789',
+          researchgate:'https://www.researchgate.net/publication/Example_Fiscal_Policy_and_Inequality',
+          ssrn:'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3456789',
           scholar:'https://scholar.google.com/scholar?q=Fiscal+Policy+and+Inequality'
         },
         citations:210
       }
     ];
 
-    /* ====== State ====== */
-    let filtered = [...PAPERS]; // current filtered list
+    /* ====== State & helpers (unchanged) ====== */
+    let filtered = [...PAPERS];
     const perPage = 6;
     let page = 1;
+    const listEl = document.getElementById('list');
+    const metricTotal = document.getElementById('metricTotal');
+    const savedListEl = document.getElementById('savedList');
 
-    /* ====== Helpers ====== */
-
-    // Create a short author string for display
-    function authorsText(authors){
-      return authors.map(a=>a.name).join(', ');
-    }
-
-    // Render tags into a container
-    function renderTags(container, tags){
-      container.innerHTML = '';
-      tags.forEach(t=>{
-        const el = document.createElement('div');
-        el.className = 'tag';
-        el.textContent = t;
-        container.appendChild(el);
-      });
-    }
-
-    // Format citation in simple APA-ish and BibTeX
+    function authorsText(authors){ return authors.map(a=>a.name).join(', '); }
+    function renderTags(container, tags){ container.innerHTML=''; tags.forEach(t=>{ const el=document.createElement('div'); el.className='tag'; el.textContent=t; container.appendChild(el); }); }
     function makeCitation(p){
       const authorNames = p.authors.map(a=>a.name).join(' & ');
       const apa = `${authorNames} (${p.year}). ${p.title}. ${p.venue}.`;
@@ -296,125 +222,66 @@
       return {apa,bib,ris};
     }
 
-    /* ====== Rendering paper list ====== */
-    const listEl = document.getElementById('list');
-    const metricTotal = document.getElementById('metricTotal');
-    const savedListEl = document.getElementById('savedList');
+    /* ====== Utility to choose best external source for opening (priority RG → SSRN → Scholar) ====== */
+    function pickExternalLink(links){
+      if(!links) return null;
+      if(links.researchgate) return links.researchgate;
+      if(links.ssrn) return links.ssrn;
+      if(links.scholar) return links.scholar;
+      return null;
+    }
 
+    /* ====== Rendering list (titles unchanged) ====== */
     function renderList(){
       listEl.innerHTML = '';
       metricTotal.textContent = PAPERS.length;
-
-      // pagination logic (basic)
       const start = (page-1)*perPage;
       const pageItems = filtered.slice(start, start+perPage);
 
-      if(pageItems.length === 0){
-        listEl.innerHTML = '<div class="center muted" style="padding:40px">No papers found.</div>';
-        renderPager();
-        return;
-      }
+      if(pageItems.length===0){ listEl.innerHTML='<div class="center muted" style="padding:40px">No papers found.</div>'; renderPager(); return; }
 
       pageItems.forEach(p=>{
-        const item = document.createElement('article');
-        item.className = 'paper';
-        // Left column: basic metadata and abstract
-        const left = document.createElement('div');
-        left.className = 'meta';
-        left.style.flex = '1';
+        const item = document.createElement('article'); item.className='paper';
+        const left = document.createElement('div'); left.className='meta'; left.style.flex='1';
+        const title = document.createElement('h3'); title.innerHTML = `<a href="#" data-id="${p.id}" class="open">${p.title}</a>`; left.appendChild(title);
+        const aLine = document.createElement('div'); aLine.className='authors'; aLine.innerHTML = authorsText(p.authors) + ` · <span class="small">${p.year}</span>`; left.appendChild(aLine);
+        const venue = document.createElement('div'); venue.className='venue small'; venue.textContent = p.venue + ' · ' + p.citations + ' citations'; left.appendChild(venue);
+        const abs = document.createElement('p'); abs.className='abstract'; abs.textContent = p.abstract.length>220? p.abstract.slice(0,220)+'…' : p.abstract; left.appendChild(abs);
+        renderTags(left,p.tags);
 
-        const title = document.createElement('h3');
-        title.innerHTML = `<a href="#" data-id="${p.id}" class="open">${p.title}</a>`;
-        left.appendChild(title);
+        const right = document.createElement('div'); right.className='actions';
+        const openBtn = document.createElement('button'); openBtn.className='btn select'; openBtn.textContent='Details'; openBtn.onclick = ()=> openModal(p.id); right.appendChild(openBtn);
 
-        const aLine = document.createElement('div');
-        aLine.className = 'authors';
-        // Authors clickable for popover (simple hover)
-        aLine.innerHTML = authorsText(p.authors) + ` · <span class="small">${p.year}</span>`;
-        left.appendChild(aLine);
-
-        const venue = document.createElement('div');
-        venue.className = 'venue small';
-        venue.textContent = p.venue + ' · ' + p.citations + ' citations';
-        left.appendChild(venue);
-
-        const abs = document.createElement('p');
-        abs.className = 'abstract';
-        abs.textContent = p.abstract.length>220? p.abstract.slice(0,220)+'…' : p.abstract;
-        left.appendChild(abs);
-
-        renderTags(left, p.tags);
-
-        // Right column: actions
-        const right = document.createElement('div');
-        right.className = 'actions';
-
-        // Open / details button
-        const openBtn = document.createElement('button');
-        openBtn.className = 'btn select';
-        openBtn.textContent = 'Details';
-        openBtn.onclick = ()=>openModal(p.id);
-        right.appendChild(openBtn);
-
-        // Download PDF
-        const dl = document.createElement('a');
-        dl.className = 'btn';
-        dl.textContent = 'PDF';
-        dl.href = p.pdf;
-        dl.target = '_blank';
-        dl.rel = 'noopener';
+        // PDF / Open external — use pickExternalLink()
+        const external = pickExternalLink(p.links);
+        const dl = document.createElement('a'); dl.className='btn'; dl.textContent = 'Open Source';
+        if(external){ dl.href = external; dl.target='_blank'; dl.rel='noopener'; }
+        else { dl.href = '#'; dl.onclick = (e)=>{ e.preventDefault(); alert('No external link available'); } }
         right.appendChild(dl);
 
-        // External links: SSRN / RG / Scholar
-        const ext = document.createElement('div');
-        ext.style.marginTop = '8px';
+        const ext = document.createElement('div'); ext.style.marginTop='8px';
         ext.innerHTML = `
-          <a class="small link" href="${p.links.ssrn}" target="_blank" rel="noopener">SSRN</a>
-          &nbsp;·&nbsp;
-          <a class="small link" href="${p.links.researchgate}" target="_blank" rel="noopener">ResearchGate</a>
-          &nbsp;·&nbsp;
-          <a class="small link" href="${p.links.scholar}" target="_blank" rel="noopener">Google Scholar</a>
+          ${p.links.ssrn ? `<a class="small link" href="${p.links.ssrn}" target="_blank" rel="noopener">SSRN</a>` : ''}
+          ${p.links.researchgate ? `&nbsp;·&nbsp;<a class="small link" href="${p.links.researchgate}" target="_blank" rel="noopener">ResearchGate</a>` : ''}
+          ${p.links.scholar ? `&nbsp;·&nbsp;<a class="small link" href="${p.links.scholar}" target="_blank" rel="noopener">Google Scholar</a>` : ''}
         `;
         right.appendChild(ext);
 
-        item.appendChild(left);
-        item.appendChild(right);
-
+        item.appendChild(left); item.appendChild(right);
         listEl.appendChild(item);
       });
 
-      renderPager();
-      attachOpenHandlers();
+      renderPager(); attachOpenHandlers();
     }
 
-    /* ====== Pager (simple prev/next) ====== */
     function renderPager(){
-      const pager = document.getElementById('pager');
-      pager.innerHTML = '';
+      const pager = document.getElementById('pager'); pager.innerHTML='';
       const pages = Math.ceil(filtered.length / perPage) || 1;
-
-      const prev = document.createElement('button');
-      prev.className = 'btn';
-      prev.textContent = 'Prev';
-      prev.disabled = page <= 1;
-      prev.onclick = ()=>{ page = Math.max(1, page-1); renderList(); };
-      pager.appendChild(prev);
-
-      const info = document.createElement('div');
-      info.className = 'small muted';
-      info.style.alignSelf = 'center';
-      info.textContent = `Page ${page} of ${pages}`;
-      pager.appendChild(info);
-
-      const next = document.createElement('button');
-      next.className = 'btn';
-      next.textContent = 'Next';
-      next.disabled = page >= pages;
-      next.onclick = ()=>{ page = Math.min(pages, page+1); renderList(); };
-      pager.appendChild(next);
+      const prev = document.createElement('button'); prev.className='btn'; prev.textContent='Prev'; prev.disabled = page<=1; prev.onclick = ()=>{ page = Math.max(1,page-1); renderList(); }; pager.appendChild(prev);
+      const info = document.createElement('div'); info.className='small muted'; info.style.alignSelf='center'; info.textContent = `Page ${page} of ${pages}`; pager.appendChild(info);
+      const next = document.createElement('button'); next.className='btn'; next.textContent='Next'; next.disabled = page>=pages; next.onclick = ()=>{ page = Math.min(pages,page+1); renderList(); }; pager.appendChild(next);
     }
 
-    /* ====== Open detail modal ====== */
     const modalWrap = document.getElementById('modal');
     const modalTitle = document.getElementById('modalTitle');
     const modalAuthors = document.getElementById('modalAuthors');
@@ -426,120 +293,78 @@
     const saveBtn = document.getElementById('saveBtn');
 
     function openModal(id){
-      const p = PAPERS.find(x=>x.id===id);
-      if(!p) return;
+      const p = PAPERS.find(x=>x.id===id); if(!p) return;
       modalTitle.textContent = p.title;
       modalAuthors.textContent = p.authors.map(a=>a.name+' ('+a.aff+')').join(' · ') + ' — ' + p.year;
       modalAbstract.textContent = p.abstract;
-      renderTags(modalTags, p.tags);
+      renderTags(modalTags,p.tags);
       modalLinks.innerHTML = '';
+      // External links list
       Object.entries(p.links).forEach(([k,v])=>{
+        if(!v) return;
         const li = document.createElement('li');
         li.innerHTML = `<a href="${v}" target="_blank" rel="noopener">${k.toUpperCase()}</a>`;
         modalLinks.appendChild(li);
       });
-      // citation blocks
-      const c = makeCitation(p);
-      modalCitation.textContent = c.apa;
-      // wire download and save
-      downloadBtn.onclick = ()=> window.open(p.pdf,'_blank');
+      const c = makeCitation(p); modalCitation.textContent = c.apa;
+      // Download / Open Source button uses prioritized external link
+      const external = pickExternalLink(p.links);
+      if(external){
+        downloadBtn.onclick = ()=> window.open(external,'_blank');
+      } else {
+        downloadBtn.onclick = ()=> alert('No external source link available for this paper.');
+      }
       saveBtn.onclick = ()=> toggleSave(p.id);
-      // show modal
-      modalWrap.classList.add('show');
-      modalWrap.setAttribute('aria-hidden','false');
-      // set copy handlers
+      modalWrap.classList.add('show'); modalWrap.setAttribute('aria-hidden','false');
       document.getElementById('bibBtn').onclick = ()=> copyText(c.bib);
       document.getElementById('risBtn').onclick = ()=> copyText(c.ris);
       document.getElementById('plainBtn').onclick = ()=> copyText(c.apa);
       updateSavedListUI();
     }
 
-    // Close modal
     document.getElementById('closeModal').onclick = ()=> closeModal();
     modalWrap.addEventListener('click', (e)=> { if(e.target === modalWrap) closeModal(); });
     function closeModal(){ modalWrap.classList.remove('show'); modalWrap.setAttribute('aria-hidden','true'); }
 
-    // Attach open handlers for title links
-    function attachOpenHandlers(){
-      document.querySelectorAll('.open').forEach(a=>{
-        a.onclick = (e)=>{ e.preventDefault(); const id = a.dataset.id; openModal(id); };
-      });
-    }
+    function attachOpenHandlers(){ document.querySelectorAll('.open').forEach(a=>{ a.onclick = (e)=>{ e.preventDefault(); openModal(a.dataset.id); }; }); }
 
-    /* ====== Search / sort / filter ====== */
     document.getElementById('searchBtn').addEventListener('click', ()=> applyFilters());
     document.getElementById('q').addEventListener('keydown', (e)=>{ if(e.key==='Enter') applyFilters(); });
     document.getElementById('sort').addEventListener('change', ()=> applyFilters());
 
     function applyFilters(){
       const q = document.getElementById('q').value.trim().toLowerCase();
-      // tags
       const checked = [...document.querySelectorAll('.tagFilter:checked')].map(i=>i.value);
-      // filter
       filtered = PAPERS.filter(p=>{
-        // tag filter: if any tags are checked, paper must include them (all checked or any? here we require any)
         if(checked.length && !p.tags.some(t=>checked.includes(t))) return false;
         if(!q) return true;
-        // search in title, authors, abstract, tags
         const hay = (p.title + ' ' + p.authors.map(a=>a.name).join(' ') + ' ' + p.abstract + ' ' + p.tags.join(' ')).toLowerCase();
         return hay.includes(q);
       });
-      // sorting
       const sort = document.getElementById('sort').value;
-      if(sort === 'new') filtered.sort((a,b)=>b.year-a.year);
-      if(sort === 'cited') filtered.sort((a,b)=>b.citations-b.citations);
-      // reset to first page
+      if(sort==='new') filtered.sort((a,b)=>b.year-a.year);
+      if(sort==='cited') filtered.sort((a,b)=>b.citations-b.citations);
       page = 1;
       renderList();
     }
 
-    /* ====== Save / library (localStorage) ====== */
     function getSaved(){ try{ return JSON.parse(localStorage.getItem('uc_saved')||'[]'); }catch(e){return []} }
-    function savePaper(id){
-      const s = getSaved();
-      if(!s.includes(id)) { s.push(id); localStorage.setItem('uc_saved', JSON.stringify(s)); }
-      updateSavedListUI();
-    }
-    function removeSaved(id){
-      let s = getSaved(); s = s.filter(x=>x!==id); localStorage.setItem('uc_saved', JSON.stringify(s)); updateSavedListUI();
-    }
-    function toggleSave(id){
-      const s = getSaved();
-      if(s.includes(id)) removeSaved(id); else savePaper(id);
-      updateSavedListUI();
-    }
+    function savePaper(id){ const s=getSaved(); if(!s.includes(id)){ s.push(id); localStorage.setItem('uc_saved',JSON.stringify(s)); } updateSavedListUI(); }
+    function removeSaved(id){ let s=getSaved(); s=s.filter(x=>x!==id); localStorage.setItem('uc_saved',JSON.stringify(s)); updateSavedListUI(); }
+    function toggleSave(id){ const s=getSaved(); if(s.includes(id)) removeSaved(id); else savePaper(id); updateSavedListUI(); }
     function updateSavedListUI(){
-      const s = getSaved();
-      if(s.length === 0){ savedListEl.innerHTML = '<span class="muted">No saved papers.</span>'; return; }
-      savedListEl.innerHTML = '';
-      s.forEach(id=>{
-        const p = PAPERS.find(x=>x.id===id);
-        if(!p) return;
-        const div = document.createElement('div');
-        div.style.marginBottom = '8px';
-        div.innerHTML = `<strong style="display:block">${p.title}</strong><span class="small muted">${p.authors.map(a=>a.name).join(', ')}</span>
-                         <div style="margin-top:6px"><button class="btn" style="margin-right:6px" onclick="openModal('${p.id}')">View</button>
-                         <button class="btn" onclick="removeSaved('${p.id}')">Remove</button></div>`;
-        savedListEl.appendChild(div);
-      });
+      const s=getSaved();
+      if(s.length===0){ savedListEl.innerHTML='<span class="muted">No saved papers.</span>'; return; }
+      savedListEl.innerHTML=''; s.forEach(id=>{ const p = PAPERS.find(x=>x.id===id); if(!p) return; const div=document.createElement('div'); div.style.marginBottom='8px'; div.innerHTML = `<strong style="display:block">${p.title}</strong><span class="small muted">${p.authors.map(a=>a.name).join(', ')}</span><div style="margin-top:6px"><button class="btn" style="margin-right:6px" onclick="openModal('${p.id}')">View</button><button class="btn" onclick="removeSaved('${p.id}')">Remove</button></div>`; savedListEl.appendChild(div); });
     }
 
-    /* ====== Utility: copy to clipboard ====== */
     async function copyText(text){
-      try{
-        await navigator.clipboard.writeText(text);
-        alert('Copied to clipboard');
-      }catch(e){
-        // fallback
-        prompt('Copy the citation', text);
-      }
+      try{ await navigator.clipboard.writeText(text); alert('Copied to clipboard'); }catch(e){ prompt('Copy the citation', text); }
     }
 
-    /* ====== Init render ====== */
+    // initialize
     renderList();
     updateSavedListUI();
-
-    // small accessibility: focus search input on load
     document.getElementById('q').focus();
 
   </script>
