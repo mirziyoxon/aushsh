@@ -1,372 +1,274 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Unicorner Research — Papers (external PDFs)</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unicorner Research Papers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <style>
-    :root{--bg:#fbfbfb;--panel:#fff;--muted:#6b6b6b;--text:#0b0b0b;--accent:#0b1724;--border:#e8e8e8;--max-width:1200px}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:"Inter",system-ui,Arial;color:var(--text);background:var(--bg)}
-    a{color:inherit}
-    .wrap{max-width:var(--max-width);margin:36px auto;padding:20px}
-    header.site{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:18px}
-    .brand{display:flex;gap:14px;align-items:center}
-    .brand .logo{width:56px;height:56px;border-radius:8px;background:linear-gradient(180deg,#111,#444);color:#fff;display:grid;place-items:center;font-weight:700;font-family:"Merriweather",serif}
-    .brand h1{font-family:"Merriweather",serif;margin:0;font-size:22px}
-    .brand p{margin:4px 0 0;color:var(--muted);font-size:13px}
-    .toolbar{display:flex;gap:12px;align-items:center;margin-top:8px;flex-wrap:wrap}
-    .search{flex:1;display:flex;border:1px solid var(--border);background:var(--panel);padding:6px;border-radius:999px;align-items:center;gap:8px}
-    .search input{border:0;outline:none;padding:8px 6px;font-size:14px;background:transparent;width:100%}
-    .select, .btn{padding:8px 12px;border-radius:8px;border:1px solid var(--border);background:var(--panel);cursor:pointer}
-    .btn.primary{background:var(--accent);color:#fff;border:0}
-    .layout{display:grid;grid-template-columns:1fr 320px;gap:22px;margin-top:18px}
-    @media (max-width:980px){.layout{grid-template-columns:1fr}}
-    .list{background:transparent}
-    .paper{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:12px;display:flex;gap:16px;align-items:flex-start}
-    .paper .meta{display:flex;flex-direction:column;gap:6px}
-    .paper h3{font-family:"Merriweather",serif;font-size:17px;margin:0}
-    .paper .authors{color:var(--muted);font-size:13px}
-    .paper .venue{color:var(--muted);font-size:13px}
-    .paper .abstract{margin-top:8px;color:#333;font-size:14px}
-    .paper .actions{margin-left:auto;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
-    .small{font-size:13px;color:var(--muted)}
-    .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-    .tag{background:#f3f3f3;padding:6px 8px;border-radius:999px;font-size:12px;border:1px solid #eee;color:var(--muted)}
-    aside.panel{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px;position:sticky;top:20px;height:fit-content}
-    .side-section{margin-bottom:16px}
-    .side-section h4{margin:0 0 10px 0;font-family:"Merriweather",serif}
-    .metric{display:flex;justify-content:space-between;padding:8px 0;border-top:1px dashed #f0f0f0}
-    .modal-backdrop{position:fixed;inset:0;background:rgba(11,17,23,0.5);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
-    .modal-backdrop.show{display:flex}
-    .modal{background:var(--panel);max-width:900px;width:100%;border-radius:10px;padding:20px;max-height:90vh;overflow:auto;border:1px solid var(--border)}
-    .modal .top{display:flex;gap:16px}
-    .modal h2{font-family:"Merriweather",serif;margin:0}
-    .modal .modal-actions{margin-left:auto;display:flex;gap:8px;align-items:center}
-    .citation{background:#fafafa;border:1px dashed #eee;padding:12px;border-radius:8px;margin-top:14px;font-family:monospace;font-size:13px;color:#222}
-    .muted{color:var(--muted)}
-    .center{display:grid;place-items:center}
-    .link {color:var(--accent);text-decoration:underline;cursor:pointer}
-    @media (max-width:600px){.paper{flex-direction:column}.paper .actions{align-items:stretch;margin-left:0}.search{width:100%}}
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #fafafa;
+      color: #111;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      border-bottom: 1px solid #ddd;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      margin: 0;
+      letter-spacing: 0.5px;
+    }
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .user-info span {
+      font-size: 0.9rem;
+      color: #444;
+    }
+    .logout-btn {
+      background: #222;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    main {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    .paper {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      padding: 20px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .paper:hover {
+      transform: scale(1.01);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+    .paper h2 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 10px;
+    }
+    .paper p {
+      color: #555;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 200;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+    .modal-content input {
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    .modal-content button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 6px;
+      background: #111;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .error {
+      color: red;
+      font-size: 0.85rem;
+    }
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.3rem; }
+      .paper { padding: 15px; }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header class="site">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">UR</div>
-        <div>
-          <h1>Unicorner Research</h1>
-          <p>Direct links to SSRN · ResearchGate · Google Scholar PDFs</p>
-        </div>
-      </div>
+  <header>
+    <h1>Unicorner Research</h1>
+    <div class="user-info" id="user-info">
+      <span id="user-display"></span>
+      <button class="logout-btn" id="logout-btn" style="display:none;">Logout</button>
+    </div>
+  </header>
 
-      <div style="width:420px">
-        <div class="toolbar">
-          <div class="search" role="search" style="flex:1">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="opacity:.6"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            <input id="q" placeholder="Search title, author, keywords..." aria-label="Search papers">
-            <button id="searchBtn" class="select">Search</button>
-          </div>
+  <main>
+    <div class="paper" data-paper="paper1">
+      <h2>The Economic Dynamics of Central Asia</h2>
+      <p>An exploration of post-Soviet transitions, regional trade flows, and the role of innovation...</p>
+    </div>
+    <div class="paper" data-paper="paper2">
+      <h2>AI and Financial Inclusion</h2>
+      <p>How artificial intelligence reshapes access to finance in developing economies...</p>
+    </div>
+    <div class="paper" data-paper="paper3">
+      <h2>Green Energy Policies in Uzbekistan</h2>
+      <p>Understanding the shift from fossil fuels to renewables through data-driven insights...</p>
+    </div>
+  </main>
 
-          <select id="sort" class="select" title="Sort papers">
-            <option value="new">Sort: Newest</option>
-            <option value="cited">Sort: Most cited</option>
-            <option value="relevance">Sort: Relevance</option>
-          </select>
-        </div>
-      </div>
-    </header>
-
-    <div class="layout">
-      <main>
-        <div id="list" class="list" aria-live="polite"></div>
-        <div id="pager" style="display:flex;gap:8px;justify-content:center;margin-top:14px"></div>
-      </main>
-
-      <aside class="panel">
-        <div class="side-section">
-          <h4>Filters</h4>
-          <div style="display:flex;flex-direction:column;gap:8px">
-            <label><input type="checkbox" class="tagFilter" value="economics"> Economics</label>
-            <label><input type="checkbox" class="tagFilter" value="ai"> AI</label>
-            <label><input type="checkbox" class="tagFilter" value="policy"> Policy</label>
-            <label><input type="checkbox" class="tagFilter" value="finance"> Finance</label>
-          </div>
-        </div>
-
-        <div class="side-section">
-          <h4>Library</h4>
-          <div id="savedList" style="min-height:60px;color:var(--muted)">No saved papers yet.</div>
-        </div>
-
-        <div class="side-section">
-          <h4>Site metrics</h4>
-          <div class="metric"><span>Indexed papers</span><strong id="metricTotal">—</strong></div>
-          <div class="metric"><span>Sources</span><strong>SSRN · ResearchGate · Google Scholar</strong></div>
-        </div>
-      </aside>
+  <!-- Registration Modal -->
+  <div class="modal" id="register-modal">
+    <div class="modal-content">
+      <h3>Register to Continue</h3>
+      <input type="text" id="full-name" placeholder="Full Name" required>
+      <input type="email" id="email" placeholder="Email Address" required>
+      <button id="send-code">Send Verification Code</button>
+      <p class="error" id="reg-error"></p>
     </div>
   </div>
 
-  <div id="modal" class="modal-backdrop" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="top">
-        <div style="flex:1">
-          <h2 id="modalTitle">Paper Title</h2>
-          <div class="muted" id="modalAuthors">Author • Affiliation — Year</div>
-        </div>
-        <div class="modal-actions">
-          <button id="saveBtn" class="btn select">Save</button>
-          <button id="downloadBtn" class="btn select">Open Source</button>
-          <button id="closeModal" class="btn">Close</button>
-        </div>
-      </div>
-
-      <div style="margin-top:14px">
-        <h4 style="margin:0 0 6px 0">Abstract</h4>
-        <p id="modalAbstract" style="margin:0 0 10px 0;color:#222;line-height:1.5"></p>
-
-        <div class="tags" id="modalTags"></div>
-
-        <div style="margin-top:14px">
-          <strong>External Links</strong>
-          <ul id="modalLinks" style="margin-top:8px;color:var(--muted)"></ul>
-        </div>
-
-        <div style="margin-top:14px">
-          <strong>Citation</strong>
-          <div class="citation" id="modalCitation"></div>
-          <div style="margin-top:8px;display:flex;gap:8px">
-            <button id="bibBtn" class="btn select">Copy BibTeX</button>
-            <button id="risBtn" class="btn select">Copy RIS</button>
-            <button id="plainBtn" class="btn select">Copy plaintext</button>
-          </div>
-        </div>
-      </div>
+  <!-- Code Verification Modal -->
+  <div class="modal" id="code-modal">
+    <div class="modal-content">
+      <h3>Enter Verification Code</h3>
+      <input type="text" id="verification-code" placeholder="Enter code">
+      <button id="verify-code">Verify</button>
+      <p class="error" id="code-error"></p>
     </div>
   </div>
 
   <script>
-    /* ----------------------------
-       SAMPLE PAPERS (external links)
-       Replace the links with actual SSRN / ResearchGate / Scholar URLs
-       Each 'links' should include researchgate and/or ssrn and/or scholar
-       ---------------------------- */
-    const PAPERS = [
-      {
-        id:'p1',
-        title:'Structural Change and Growth: A Multi-sectoral Approach',
-        authors:[{name:'A. Researcher',aff:'Harvard University'},{name:'B. Economist',aff:'LSE'}],
-        year:2024,
-        venue:'Journal of Development Economics',
-        abstract:'This paper examines structural change using a multi-sector dynamic model. We estimate ... (sample abstract).',
-        tags:['economics','policy'],
-        links:{
-          researchgate:'https://www.researchgate.net/publication/Example_Structural_Change_and_Growth',
-          ssrn:'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1234567',
-          scholar:'https://scholar.google.com/scholar?q=Structural+Change+and+Growth'
-        },
-        citations:128
-      },
-      {
-        id:'p2',
-        title:'Machine Learning for Macro-Forecasting',
-        authors:[{name:'C. Data',aff:'MIT'},{name:'D. Stat',aff:'Stanford'}],
-        year:2023,
-        venue:'SSRN Working Paper',
-        abstract:'We apply a suite of machine learning models to macroeconomic forecasting tasks and show ...',
-        tags:['ai','finance'],
-        links:{
-          researchgate:'https://www.researchgate.net/publication/Example_ML_Macro_Forecasting',
-          ssrn:'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2345678',
-          scholar:'https://scholar.google.com/scholar?q=Machine+Learning+for+Macro-Forecasting'
-        },
-        citations:54
-      },
-      {
-        id:'p3',
-        title:'Fiscal Policy and Inequality',
-        authors:[{name:'E. Policy',aff:'Oxford'}],
-        year:2021,
-        venue:'Policy Research Working Paper',
-        abstract:'An empirical analysis of fiscal instruments and their distributional consequences ...',
-        tags:['policy','finance'],
-        links:{
-          researchgate:'https://www.researchgate.net/publication/Example_Fiscal_Policy_and_Inequality',
-          ssrn:'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3456789',
-          scholar:'https://scholar.google.com/scholar?q=Fiscal+Policy+and+Inequality'
-        },
-        citations:210
+    emailjs.init("U61qjjpdisn3tPolI");
+
+    const papers = document.querySelectorAll('.paper');
+    const regModal = document.getElementById('register-modal');
+    const codeModal = document.getElementById('code-modal');
+    const regError = document.getElementById('reg-error');
+    const codeError = document.getElementById('code-error');
+    const userDisplay = document.getElementById('user-display');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    let verificationCode = "";
+    let attempts = 0;
+
+    const storedUser = JSON.parse(localStorage.getItem('unicorner_user'));
+    const blockedUntil = localStorage.getItem('blocked_until');
+
+    // Check if blocked
+    if (blockedUntil && new Date() < new Date(blockedUntil)) {
+      alert("You are blocked for 24 hours due to multiple wrong attempts.");
+    }
+
+    // Update header
+    if (storedUser) {
+      userDisplay.textContent = `${storedUser.name} (${storedUser.email})`;
+      logoutBtn.style.display = 'inline-block';
+    }
+
+    // Logout
+    logoutBtn.onclick = () => {
+      localStorage.removeItem('unicorner_user');
+      location.reload();
+    };
+
+    // Paper click
+    papers.forEach(paper => {
+      paper.addEventListener('click', () => {
+        if (!storedUser) {
+          regModal.style.display = 'flex';
+        } else {
+          alert(`Opening ${paper.querySelector('h2').textContent}...`);
+        }
+      });
+    });
+
+    // Send code
+    document.getElementById('send-code').onclick = async () => {
+      const name = document.getElementById('full-name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      if (!name || !email) {
+        regError.textContent = "Please fill in all fields.";
+        return;
       }
-    ];
 
-    /* ====== State & helpers (unchanged) ====== */
-    let filtered = [...PAPERS];
-    const perPage = 6;
-    let page = 1;
-    const listEl = document.getElementById('list');
-    const metricTotal = document.getElementById('metricTotal');
-    const savedListEl = document.getElementById('savedList');
+      verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-    function authorsText(authors){ return authors.map(a=>a.name).join(', '); }
-    function renderTags(container, tags){ container.innerHTML=''; tags.forEach(t=>{ const el=document.createElement('div'); el.className='tag'; el.textContent=t; container.appendChild(el); }); }
-    function makeCitation(p){
-      const authorNames = p.authors.map(a=>a.name).join(' & ');
-      const apa = `${authorNames} (${p.year}). ${p.title}. ${p.venue}.`;
-      const bib = `@article{${p.id},\n  title={${p.title}},\n  author={${p.authors.map(a=>a.name).join(' and ')}},\n  journal={${p.venue}},\n  year={${p.year}}\n}`;
-      const ris = `TY  - JOUR\nTI  - ${p.title}\nAU  - ${p.authors.map(a=>a.name).join('\\nAU  - ')}\nPY  - ${p.year}\nJO  - ${p.venue}\nER  -`;
-      return {apa,bib,ris};
-    }
+      try {
+        await emailjs.send("service_9h9d5jo", "template_inq4rb4", {
+          to_email: email,
+          to_name: name,
+          message: `Your Unicorner verification code is: ${verificationCode}`
+        });
+        regModal.style.display = 'none';
+        codeModal.style.display = 'flex';
+      } catch (e) {
+        regError.textContent = "Failed to send code. Please try again.";
+      }
+    };
 
-    /* ====== Utility to choose best external source for opening (priority RG → SSRN → Scholar) ====== */
-    function pickExternalLink(links){
-      if(!links) return null;
-      if(links.researchgate) return links.researchgate;
-      if(links.ssrn) return links.ssrn;
-      if(links.scholar) return links.scholar;
-      return null;
-    }
+    // Verify code
+    document.getElementById('verify-code').onclick = () => {
+      const code = document.getElementById('verification-code').value.trim();
 
-    /* ====== Rendering list (titles unchanged) ====== */
-    function renderList(){
-      listEl.innerHTML = '';
-      metricTotal.textContent = PAPERS.length;
-      const start = (page-1)*perPage;
-      const pageItems = filtered.slice(start, start+perPage);
+      if (code === verificationCode) {
+        const name = document.getElementById('full-name').value.trim();
+        const email = document.getElementById('email').value.trim();
 
-      if(pageItems.length===0){ listEl.innerHTML='<div class="center muted" style="padding:40px">No papers found.</div>'; renderPager(); return; }
-
-      pageItems.forEach(p=>{
-        const item = document.createElement('article'); item.className='paper';
-        const left = document.createElement('div'); left.className='meta'; left.style.flex='1';
-        const title = document.createElement('h3'); title.innerHTML = `<a href="#" data-id="${p.id}" class="open">${p.title}</a>`; left.appendChild(title);
-        const aLine = document.createElement('div'); aLine.className='authors'; aLine.innerHTML = authorsText(p.authors) + ` · <span class="small">${p.year}</span>`; left.appendChild(aLine);
-        const venue = document.createElement('div'); venue.className='venue small'; venue.textContent = p.venue + ' · ' + p.citations + ' citations'; left.appendChild(venue);
-        const abs = document.createElement('p'); abs.className='abstract'; abs.textContent = p.abstract.length>220? p.abstract.slice(0,220)+'…' : p.abstract; left.appendChild(abs);
-        renderTags(left,p.tags);
-
-        const right = document.createElement('div'); right.className='actions';
-        const openBtn = document.createElement('button'); openBtn.className='btn select'; openBtn.textContent='Details'; openBtn.onclick = ()=> openModal(p.id); right.appendChild(openBtn);
-
-        // PDF / Open external — use pickExternalLink()
-        const external = pickExternalLink(p.links);
-        const dl = document.createElement('a'); dl.className='btn'; dl.textContent = 'Open Source';
-        if(external){ dl.href = external; dl.target='_blank'; dl.rel='noopener'; }
-        else { dl.href = '#'; dl.onclick = (e)=>{ e.preventDefault(); alert('No external link available'); } }
-        right.appendChild(dl);
-
-        const ext = document.createElement('div'); ext.style.marginTop='8px';
-        ext.innerHTML = `
-          ${p.links.ssrn ? `<a class="small link" href="${p.links.ssrn}" target="_blank" rel="noopener">SSRN</a>` : ''}
-          ${p.links.researchgate ? `&nbsp;·&nbsp;<a class="small link" href="${p.links.researchgate}" target="_blank" rel="noopener">ResearchGate</a>` : ''}
-          ${p.links.scholar ? `&nbsp;·&nbsp;<a class="small link" href="${p.links.scholar}" target="_blank" rel="noopener">Google Scholar</a>` : ''}
-        `;
-        right.appendChild(ext);
-
-        item.appendChild(left); item.appendChild(right);
-        listEl.appendChild(item);
-      });
-
-      renderPager(); attachOpenHandlers();
-    }
-
-    function renderPager(){
-      const pager = document.getElementById('pager'); pager.innerHTML='';
-      const pages = Math.ceil(filtered.length / perPage) || 1;
-      const prev = document.createElement('button'); prev.className='btn'; prev.textContent='Prev'; prev.disabled = page<=1; prev.onclick = ()=>{ page = Math.max(1,page-1); renderList(); }; pager.appendChild(prev);
-      const info = document.createElement('div'); info.className='small muted'; info.style.alignSelf='center'; info.textContent = `Page ${page} of ${pages}`; pager.appendChild(info);
-      const next = document.createElement('button'); next.className='btn'; next.textContent='Next'; next.disabled = page>=pages; next.onclick = ()=>{ page = Math.min(pages,page+1); renderList(); }; pager.appendChild(next);
-    }
-
-    const modalWrap = document.getElementById('modal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalAuthors = document.getElementById('modalAuthors');
-    const modalAbstract = document.getElementById('modalAbstract');
-    const modalTags = document.getElementById('modalTags');
-    const modalLinks = document.getElementById('modalLinks');
-    const modalCitation = document.getElementById('modalCitation');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const saveBtn = document.getElementById('saveBtn');
-
-    function openModal(id){
-      const p = PAPERS.find(x=>x.id===id); if(!p) return;
-      modalTitle.textContent = p.title;
-      modalAuthors.textContent = p.authors.map(a=>a.name+' ('+a.aff+')').join(' · ') + ' — ' + p.year;
-      modalAbstract.textContent = p.abstract;
-      renderTags(modalTags,p.tags);
-      modalLinks.innerHTML = '';
-      // External links list
-      Object.entries(p.links).forEach(([k,v])=>{
-        if(!v) return;
-        const li = document.createElement('li');
-        li.innerHTML = `<a href="${v}" target="_blank" rel="noopener">${k.toUpperCase()}</a>`;
-        modalLinks.appendChild(li);
-      });
-      const c = makeCitation(p); modalCitation.textContent = c.apa;
-      // Download / Open Source button uses prioritized external link
-      const external = pickExternalLink(p.links);
-      if(external){
-        downloadBtn.onclick = ()=> window.open(external,'_blank');
+        localStorage.setItem('unicorner_user', JSON.stringify({ name, email }));
+        userDisplay.textContent = `${name} (${email})`;
+        logoutBtn.style.display = 'inline-block';
+        codeModal.style.display = 'none';
+        alert("Registration successful! You can now access all papers.");
       } else {
-        downloadBtn.onclick = ()=> alert('No external source link available for this paper.');
+        attempts++;
+        codeError.textContent = `Wrong code. Attempts left: ${3 - attempts}`;
+        if (attempts >= 3) {
+          const blockUntil = new Date(Date.now() + 24 * 60 * 60 * 1000);
+          localStorage.setItem('blocked_until', blockUntil);
+          codeError.textContent = "You are blocked for 24 hours.";
+          codeModal.style.display = 'none';
+        }
       }
-      saveBtn.onclick = ()=> toggleSave(p.id);
-      modalWrap.classList.add('show'); modalWrap.setAttribute('aria-hidden','false');
-      document.getElementById('bibBtn').onclick = ()=> copyText(c.bib);
-      document.getElementById('risBtn').onclick = ()=> copyText(c.ris);
-      document.getElementById('plainBtn').onclick = ()=> copyText(c.apa);
-      updateSavedListUI();
-    }
+    };
 
-    document.getElementById('closeModal').onclick = ()=> closeModal();
-    modalWrap.addEventListener('click', (e)=> { if(e.target === modalWrap) closeModal(); });
-    function closeModal(){ modalWrap.classList.remove('show'); modalWrap.setAttribute('aria-hidden','true'); }
-
-    function attachOpenHandlers(){ document.querySelectorAll('.open').forEach(a=>{ a.onclick = (e)=>{ e.preventDefault(); openModal(a.dataset.id); }; }); }
-
-    document.getElementById('searchBtn').addEventListener('click', ()=> applyFilters());
-    document.getElementById('q').addEventListener('keydown', (e)=>{ if(e.key==='Enter') applyFilters(); });
-    document.getElementById('sort').addEventListener('change', ()=> applyFilters());
-
-    function applyFilters(){
-      const q = document.getElementById('q').value.trim().toLowerCase();
-      const checked = [...document.querySelectorAll('.tagFilter:checked')].map(i=>i.value);
-      filtered = PAPERS.filter(p=>{
-        if(checked.length && !p.tags.some(t=>checked.includes(t))) return false;
-        if(!q) return true;
-        const hay = (p.title + ' ' + p.authors.map(a=>a.name).join(' ') + ' ' + p.abstract + ' ' + p.tags.join(' ')).toLowerCase();
-        return hay.includes(q);
+    // Close modals on background click
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', e => {
+        if (e.target === modal) modal.style.display = 'none';
       });
-      const sort = document.getElementById('sort').value;
-      if(sort==='new') filtered.sort((a,b)=>b.year-a.year);
-      if(sort==='cited') filtered.sort((a,b)=>b.citations-b.citations);
-      page = 1;
-      renderList();
-    }
-
-    function getSaved(){ try{ return JSON.parse(localStorage.getItem('uc_saved')||'[]'); }catch(e){return []} }
-    function savePaper(id){ const s=getSaved(); if(!s.includes(id)){ s.push(id); localStorage.setItem('uc_saved',JSON.stringify(s)); } updateSavedListUI(); }
-    function removeSaved(id){ let s=getSaved(); s=s.filter(x=>x!==id); localStorage.setItem('uc_saved',JSON.stringify(s)); updateSavedListUI(); }
-    function toggleSave(id){ const s=getSaved(); if(s.includes(id)) removeSaved(id); else savePaper(id); updateSavedListUI(); }
-    function updateSavedListUI(){
-      const s=getSaved();
-      if(s.length===0){ savedListEl.innerHTML='<span class="muted">No saved papers.</span>'; return; }
-      savedListEl.innerHTML=''; s.forEach(id=>{ const p = PAPERS.find(x=>x.id===id); if(!p) return; const div=document.createElement('div'); div.style.marginBottom='8px'; div.innerHTML = `<strong style="display:block">${p.title}</strong><span class="small muted">${p.authors.map(a=>a.name).join(', ')}</span><div style="margin-top:6px"><button class="btn" style="margin-right:6px" onclick="openModal('${p.id}')">View</button><button class="btn" onclick="removeSaved('${p.id}')">Remove</button></div>`; savedListEl.appendChild(div); });
-    }
-
-    async function copyText(text){
-      try{ await navigator.clipboard.writeText(text); alert('Copied to clipboard'); }catch(e){ prompt('Copy the citation', text); }
-    }
-
-    // initialize
-    renderList();
-    updateSavedListUI();
-    document.getElementById('q').focus();
-
+    });
   </script>
 </body>
 </html>
