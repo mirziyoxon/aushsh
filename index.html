@@ -3,197 +3,228 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>The Unicorner Reader — Articles · Journals · Books</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <title>Unicorner LIVE — Dual Broadcast View</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --accent:#111;--muted:#6b6b6b;--bg:#fff;--highlight:#e5e5e5;--max-width:1100px;
+      --bg: #f7f7f7;
+      --panel: #ffffff;
+      --text: #111;
+      --muted: #6a6a6a;
+      --border: #e3e3e3;
+      --accent: #0b1724;
     }
-    * { box-sizing:border-box; }
-    body { font-family:"Source Sans 3",system-ui,Arial; background:var(--bg); color:#111; margin:0; padding:0; }
-    header { border-bottom:1px solid #eee; padding:30px 20px; text-align:center; }
-    header h1 { font-family:"Merriweather",serif; font-size:36px; margin:0; }
-    header p { color:var(--muted); margin:6px 0 0; }
-    nav { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; max-width:var(--max-width); margin:20px auto; padding:0 20px; }
-    .nav-left a { text-decoration:none; color:var(--accent); font-weight:600; padding:8px 10px; border-radius:4px; }
-    .nav-left a:hover { background:var(--highlight); }
-    .search-box { display:flex; align-items:center; border:1px solid #ddd; border-radius:30px; padding:4px 10px; }
-    .search-box input { border:none; outline:none; background:transparent; padding:6px 8px; }
-    .search-box button { border:none; background:var(--accent); color:#fff; padding:6px 10px; border-radius:20px; cursor:pointer; }
-    .user-panel { position:relative; }
-    .user-bubble { width:42px; height:42px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; font-weight:700; }
-    .dropdown { display:none; position:absolute; right:0; top:50px; background:#fff; border:1px solid #ddd; border-radius:6px; padding:12px; width:200px; box-shadow:0 4px 20px rgba(0,0,0,0.1); }
-    .dropdown.show { display:block; }
-    main { display:grid; grid-template-columns:1fr 300px; gap:30px; max-width:var(--max-width); margin:20px auto; padding:0 20px; }
-    .card { border-bottom:1px solid #eee; padding:15px 0; }
-    .card h2 { font-family:"Merriweather",serif; margin-bottom:10px; }
-    .item { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #f2f2f2; }
-    .item a { text-decoration:none; color:var(--accent); }
-    .meta { color:var(--muted); font-size:13px; }
-    aside { border-left:1px solid #f0f0f0; padding-left:18px; }
-    footer { text-align:center; padding:30px; color:var(--muted); font-size:13px; border-top:1px solid #eee; margin-top:40px; }
-    .modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,0.45); display:none; align-items:center; justify-content:center; z-index:100; }
-    .modal-backdrop.show { display:flex; }
-    .modal { background:#fff; border-radius:8px; padding:20px; max-width:400px; width:100%; }
-    input[type=text], input[type=email] { width:100%; padding:10px; border:1px solid #ddd; border-radius:6px; }
-    .checkbox { display:flex; align-items:center; gap:8px; }
-    .btn { background:var(--accent); color:#fff; padding:10px 14px; border:none; border-radius:6px; cursor:pointer; }
-    .btn.secondary { background:#f5f5f5; color:#111; }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Source Sans 3", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: #111;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Merriweather", serif;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-family: "Merriweather", serif;
+      font-size: 22px;
+      color: var(--accent);
+    }
+
+    .brand p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .clock {
+      text-align: right;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .clock span {
+      display: block;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 3px;
+    }
+
+    /* Dual video layout */
+    main {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 960px) {
+      main { grid-template-columns: 1fr; }
+    }
+
+    .video-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+    }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    /* Aspect ratios */
+    .video-portrait::before {
+      content: "";
+      display: block;
+      padding-top: 177.77%; /* 9:16 ratio */
+    }
+    .video-landscape::before {
+      content: "";
+      display: block;
+      padding-top: 56.25%; /* 16:9 ratio */
+    }
+
+    .video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--text);
+    }
+    .btn.primary {
+      background: var(--accent);
+      color: #fff;
+      border: 0;
+    }
+
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>The Unicorner Reader</h1>
-    <p>Articles · Journals · Books — Explore and Read PDFs</p>
-  </header>
-  <nav>
-    <div class="nav-left">
-      <a href="#" data-section="articles">Articles</a>
-      <a href="#" data-section="journals">Journals</a>
-      <a href="#" data-section="books">Books</a>
-    </div>
-    <div class="nav-right">
-      <div class="search-box">
-        <input id="searchInput" type="text" placeholder="Search PDFs...">
-        <button id="searchBtn">Search</button>
-      </div>
-      <div class="user-panel">
-        <div id="userBubble" class="user-bubble">+</div>
-        <div id="userDropdown" class="dropdown">
-          <div><strong id="userName">Guest</strong></div>
-          <div id="userEmail" style="font-size:13px;color:gray">—</div>
-          <button id="logoutBtn" class="btn secondary" style="margin-top:10px;width:100%">Log out</button>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">U</div>
+        <div>
+          <h1>Unicorner LIVE</h1>
+          <p>Dual Broadcast View — Standard + Shorts</p>
         </div>
       </div>
-    </div>
-  </nav>
-  <main>
-    <section id="pdfSection">
-      <article class="card" data-category="articles">
-        <h2>Articles</h2>
-        <div class="item" data-title="design thinking"><a href="#" data-pdf="/pdfs/article1.pdf">Design Thinking in Action</a><div class="meta">By A. Author · 2025</div></div>
-        <div class="item" data-title="modern journalism"><a href="#" data-pdf="/pdfs/article2.pdf">Modern Journalism Explained</a><div class="meta">By B. Writer · 2024</div></div>
-      </article>
-      <article class="card" data-category="journals">
-        <h2>Journals</h2>
-        <div class="item" data-title="economic review"><a href="#" data-pdf="/pdfs/journal1.pdf">Economic Review Vol. 8</a><div class="meta">Editorial Team · 2025</div></div>
-      </article>
-      <article class="card" data-category="books">
-        <h2>Books</h2>
-        <div class="item" data-title="business insights"><a href="#" data-pdf="/pdfs/book1.pdf">Business Insights</a><div class="meta">M. Economist · 2023</div></div>
-      </article>
-    </section>
-    <aside>
-      <h3>About</h3>
-      <p style="font-size:14px;color:gray">Advanced prototype using localStorage and EmailJS verification system. Monthly re-registration required.</p>
-      <p id="accountStatus" style="font-size:14px;color:gray">You are browsing as <strong id="statusName">Guest</strong></p>
-    </aside>
-  </main>
-  <div id="modalBackdrop" class="modal-backdrop">
-    <div class="modal">
-      <div id="registerStep">
-        <h3>Register</h3>
-        <input id="fullname" type="text" placeholder="Full name">
-        <input id="email" type="email" placeholder="Email">
-        <div class="checkbox"><input id="agree" type="checkbox"> I agree to terms</div>
-        <button id="sendCodeBtn" class="btn">Send code</button>
-        <button id="closeModal" class="btn secondary">Cancel</button>
-        <p id="registerMsg" style="color:gray;font-size:13px"></p>
+      <div class="clock">
+        Local time
+        <span id="localClock">--:--</span>
       </div>
-      <div id="verifyStep" style="display:none">
-        <h3>Verification</h3>
-        <input id="verifCode" type="text" maxlength="6" placeholder="123456">
-        <button id="confirmCodeBtn" class="btn">Verify</button>
-        <button id="resendBtn" class="btn secondary">Resend</button>
-        <p id="verifyMsg" style="color:gray;font-size:13px"></p>
-      </div>
-    </div>
+    </header>
+
+    <main>
+      <!-- Left: Standard broadcast 9:16 -->
+      <section class="video-card">
+        <div class="video-wrap video-portrait">
+          <iframe
+            src="https://www.youtube.com/embed/xEgRTpM6Q4k?autoplay=0&modestbranding=1&rel=0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            title="Main Broadcast">
+          </iframe>
+        </div>
+        <div class="meta">
+          <div>Broadcast: <strong>NMA GAP Podcast</strong></div>
+          <button class="btn primary" onclick="window.open('https://youtu.be/xEgRTpM6Q4k','_blank')">Watch on YouTube</button>
+        </div>
+      </section>
+
+      <!-- Right: Shorts feed -->
+      <section class="video-card">
+        <div class="video-wrap video-portrait">
+          <iframe
+            src="https://www.youtube.com/embed/qk6kiUpR5BM?autoplay=0&modestbranding=1&rel=0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            title="Shorts">
+          </iframe>
+        </div>
+        <div class="meta">
+          <div>Shorts: <strong>Feature Highlight</strong></div>
+          <button class="btn" onclick="window.open('https://youtube.com/shorts/qk6kiUpR5BM?si=gthId9vrCCQoERK2','_blank')">View Shorts</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>© 2025 Unicorner Live — Dual Broadcast Layout</footer>
   </div>
-  <footer>© The Unicorner Reader — NYT/New Yorker inspired design</footer>
+
   <script>
-    // Shortcuts for selecting elements
-    const $ = s => document.querySelector(s);
-    const $$ = s => [...document.querySelectorAll(s)];
-
-    // LocalStorage keys
-    const LS_USER='user_info', LS_VERIF='verif_info', LS_FAIL='fail_count', LS_LOCK='lock_time';
-
-    const userBubble=$('#userBubble'), dropdown=$('#userDropdown'), logout=$('#logoutBtn');
-    const modal=$('#modalBackdrop'), reg=$('#registerStep'), ver=$('#verifyStep');
-
-    // Initialize EmailJS (replace YOUR_PUBLIC_KEY)
-    (function(){ emailjs.init('U61qjjpdisn3tPolI'); })();
-
-    function updateUI(){
-      const u=JSON.parse(localStorage.getItem(LS_USER)||'null');
-      if(!u){userBubble.textContent='+';$('#userName').textContent='Guest';$('#userEmail').textContent='—';$('#statusName').textContent='Guest';return;}
-      const initials=u.name.split(' ').map(x=>x[0]).join('').toUpperCase();
-      userBubble.textContent=initials;$('#userName').textContent=u.name;$('#userEmail').textContent=u.email;$('#statusName').textContent=u.name;
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('localClock').textContent = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
     }
-
-    userBubble.onclick=()=>dropdown.classList.toggle('show');
-    document.onclick=e=>{if(!dropdown.contains(e.target)&&!userBubble.contains(e.target))dropdown.classList.remove('show');};
-    logout.onclick=()=>{localStorage.removeItem(LS_USER);updateUI();alert('Logged out');};
-
-    function showModal(){modal.classList.add('show');reg.style.display='block';ver.style.display='none';}
-    function hideModal(){modal.classList.remove('show');}
-
-    function checkReg(){
-      const u=JSON.parse(localStorage.getItem(LS_USER)||'null');
-      if(!u){showModal();return false;}
-      if(!u.verifiedAt){showModal();return false;}
-      const days=(Date.now()-new Date(u.verifiedAt))/86400000;
-      if(days>30){alert('Re-register required');showModal();return false;}
-      return true;
-    }
-
-    // PDF click listener
-    $$('#pdfSection a').forEach(a=>a.onclick=e=>{e.preventDefault();if(checkReg())window.open(a.dataset.pdf,'_blank');});
-
-    // Send verification code via EmailJS
-    $('#sendCodeBtn').onclick=()=>{
-      const name=$('#fullname').value.trim(),email=$('#email').value.trim(),agree=$('#agree').checked;
-      if(!name||!email||!agree){$('#registerMsg').textContent='Please fill all fields';return;}
-      const code=Math.floor(100000+Math.random()*900000);
-      localStorage.setItem(LS_VERIF,JSON.stringify({code,expires:Date.now()+900000,name,email}));
-      localStorage.setItem(LS_USER,JSON.stringify({name,email}));
-      emailjs.send('service_9h9d5jo','template_inq4rb4',{user_name:name,verification_code:code,to_email:email})
-      .then(()=>{$('#registerMsg').textContent='Code sent! Check your email';reg.style.display='none';ver.style.display='block';})
-      .catch(()=>$('#registerMsg').textContent='Error sending email');
-    };
-
-    // Verify code
-    $('#confirmCodeBtn').onclick=()=>{
-      const input=$('#verifCode').value.trim();
-      const v=JSON.parse(localStorage.getItem(LS_VERIF)||'null');
-      if(!v){$('#verifyMsg').textContent='No code';return;}
-      if(Date.now()>v.expires){$('#verifyMsg').textContent='Code expired';return;}
-      if(input===String(v.code)){
-        const u=JSON.parse(localStorage.getItem(LS_USER));u.verifiedAt=new Date().toISOString();
-        localStorage.setItem(LS_USER,JSON.stringify(u));localStorage.removeItem(LS_VERIF);
-        alert('Verified!');hideModal();updateUI();
-      } else {
-        let f=+localStorage.getItem(LS_FAIL)||0;f++;localStorage.setItem(LS_FAIL,f);
-        if(f>=3){localStorage.setItem(LS_LOCK,Date.now()+86400000);$('#verifyMsg').textContent='Too many attempts. Try again in 24h';}
-        else $('#verifyMsg').textContent=`Wrong code (${3-f} attempts left)`;
-      }
-    };
-
-    $('#closeModal').onclick=()=>hideModal();
-
-    // Search functionality
-    $('#searchBtn').onclick=()=>{
-      const q=$('#searchInput').value.toLowerCase();
-      $$('#pdfSection .item').forEach(it=>{
-        const title=it.dataset.title.toLowerCase();
-        it.style.display=title.includes(q)?'flex':'none';
-      });
-    };
-
-    window.onload=updateUI;
+    updateClock();
+    setInterval(updateClock, 1000);
   </script>
 </body>
 </html>
